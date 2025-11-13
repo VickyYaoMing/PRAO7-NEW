@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MainMenuCamera : MonoBehaviour
 {
-    [SerializeField]Camera camera;
+    [SerializeField]Camera cam;
     Vector3 startPosition;
     [SerializeField]GameObject emptyEndPos;
     Vector3 endPos;
@@ -12,18 +12,18 @@ public class MainMenuCamera : MonoBehaviour
 
     void Start()
     {
-        if (camera != null)
+        if (cam != null)
         {
-            startPosition = camera.GetComponent<Transform>().position;
+            startPosition = cam.GetComponent<Transform>().position;
             endPos = emptyEndPos.transform.position;
-            camera.fieldOfView = 60;
+            cam.fieldOfView = 60;
         }
     }
 
     void Update()
     {
-        startPosition = camera.GetComponent<Transform>().position;
-        camera.GetComponent<Transform>().position = Vector3.Lerp(startPosition, endPos, 0.01f);
+        startPosition = cam.GetComponent<Transform>().position;
+        cam.GetComponent<Transform>().position = Vector3.Lerp(startPosition, endPos, 0.01f);
 
     }
 }

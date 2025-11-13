@@ -10,24 +10,24 @@ public class TestFactory : MonoBehaviour
 
 
 
-    [SerializeField] Boss boss;
+    //[SerializeField] Boss boss;
 
-    private void Start()
-    {
+    //private void Start()
+    //{
         
-    }
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            boss.AddTask(1, 20);
-            Debug.Log("shit worked");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            boss.AddTask(2, 5);
-            Debug.Log("shit worked");
-        }
+    //}
+    //void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Alpha1))
+    //    {
+    //        boss.AddTask(1, 20);
+    //        Debug.Log("shit worked");
+    //    }
+    //    if (Input.GetKeyDown(KeyCode.Alpha2))
+    //    {
+    //        boss.AddTask(2, 5);
+    //        Debug.Log("shit worked");
+    //    }
         
-    }
+    //}
 }

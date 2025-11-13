@@ -15,8 +15,6 @@ public class GenericStation : StationBase
         if (string.IsNullOrEmpty(sceneName))
             return;
 
-        base.OnInteract();
-        //SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
         Scene.Enter(sceneName);
     }
 }

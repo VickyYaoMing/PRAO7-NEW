@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8211480433148128077}
-  - component: {fileID: 7712274298276179678}
   - component: {fileID: 2984783361445687761}
   - component: {fileID: 7800309441970762188}
+  - component: {fileID: 6815447416211943587}
   m_Layer: 0
   m_Name: Milk
   m_TagString: Untagged
@@ -35,20 +35,6 @@ Transform:
   - {fileID: 8804973134379468045}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7712274298276179678
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3178765163848673777}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 165927057bbfa8a44a46b651340877f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 6
-  sprite: {fileID: 21300000, guid: 284782783e7fe9d45885395ed8e9f7d4, type: 3}
 --- !u!136 &2984783361445687761
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -99,6 +85,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6815447416211943587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3178765163848673777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79d0bcf997f8a7468c182350bdaef21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentHandHeldItem: 0
+  spriteIcon: {fileID: 21300000, guid: 284782783e7fe9d45885395ed8e9f7d4, type: 3}
+  task: 0
 --- !u!1001 &8808719151059826467
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -30,9 +30,6 @@ public abstract class StationBase : MonoBehaviour
            stationEntered?.Invoke(this, null);
         }
     }
-    protected virtual void OnInteract()
-    {
-        SceneEventHandler.OnTaskSceneEnter(this);
-    }
+    protected abstract void OnInteract();
 }
 

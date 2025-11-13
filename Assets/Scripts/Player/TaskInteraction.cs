@@ -5,8 +5,8 @@ public class TaskInteraction : MonoBehaviour
 {
     public static TaskInteraction Instance { get; private set; }
     public static Action currentTaskAchieved;
-    public static Action<taskIDEnum> updatePlayerAboutHoldItem;
-    public static Func<taskIDEnum> getCurrentTaskFromBoss;
+    public static Action<taskEnum> updatePlayerAboutHoldItem;
+    public static Func<taskEnum> getCurrentTaskFromBoss;
     public static TaskEventArgs currentTaskInfo { get; private set; }
 
     private void Awake()

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using NUnit.Framework;
 using UnityEngine;
+using static UnityEditor.Progress;
 
-public class InteractionManager : SavableObject
+public class InteractionManager : MonoBehaviour
 {
+
     public static InteractionManager Instance
     {
         get
@@ -20,73 +22,72 @@ public class InteractionManager : SavableObject
     private static InteractionManager instance;
 
     private Action currentStationCallback;
-    //public static event EventHandler<PlayerData> onPlayerSaveData;
     private GameObject currentHoldItem = null;
     [SerializeField] private Transform handSlot;
     [SerializeField] private List<GameObject> handHeldItems;
-    //private TaskEventArgs currentTaskInfo = null;
-
-    public GameObject CurrentHoldItem => currentHoldItem;
 
     private void Start()
     {
         instance = this;
-
-        for(int i = 0; i < handHeldItems.Count; i++)
-        {
-            GameObject gameObject = Instantiate(handHeldItems[i]);
-            gameObject.transform.SetParent(handSlot, false);
-            gameObject.SetActive(false);
-            handHeldItems[i] = gameObject;
-        }
     }
+
     protected void OnEnable()
     {
-        //currentTaskInfo = null;
         StationBase.stationEntered += IsTriggered;
-        TrashInteract.throwAwayCurrentItem += RemoveItemInHand;
         StationBase.playerKey += ReturnKey;
-        //TaskInteraction.updatePlayerAboutHoldItem += OnHoldItem;
-        //currentTaskInfo = TaskInteraction.currentTaskInfo;
-        //if(currentTaskInfo != null && currentTaskInfo.taskSucceeded) OnHoldItem(currentTaskInfo.taskId);
-        //BossDialogue.checkForPlayerItem += CheckIfPlayerHasCorrectItem;
-
+        TrashInteract.throwAwayCurrentItem += OnItemDrop;
     }
     protected void OnDisable()
     {
-        //currentTaskInfo = null;
         StationBase.stationEntered -= IsTriggered;
         StationBase.playerKey -= ReturnKey;
-        TrashInteract.throwAwayCurrentItem -= RemoveItemInHand;
-        //TaskInteraction.updatePlayerAboutHoldItem -= OnHoldItem;
-        //BossDialogue.checkForPlayerItem -= CheckIfPlayerHasCorrectItem;
+        TrashInteract.throwAwayCurrentItem -= OnItemDrop;
+
     }
-
-    //public bool CheckIfPlayerHasCorrectItem(taskIDEnum taskId)
-    //{
-    //    if(taskId == taskIDEnum.Mopping)
-    //    {
-    //        return false;
-    //    }
-    //    else if(handHeldItems[(int)taskId] == currentHoldItem)
-    //    {
-    //        RemoveItemInHand(this, EventArgs.Empty);
-    //        return true;
-    //    }
-    //    return false;
-    //}
-
     private GameObject ReturnKey()
     {
         return currentHoldItem;
     }
 
-    public void RemoveItemInHand(object o, EventArgs args)
+    private void OnItemDrop()
     {
-        if (currentHoldItem == null) return;
-        //currentHoldItem.SetActive(false);
-        Destroy(currentHoldItem);
+        currentHoldItem.SetActive(false);
+        currentHoldItem.transform.SetParent(handSlot, false);
         currentHoldItem = null;
+    }
+    public void OnRecieveItem(taskEnum task)
+    {
+        if (task == taskEnum.Mopping) return;
+
+        for(int i = 0; i < handHeldItems.Count; i++)
+        {
+            if (task == taskEnum.Printer && taskEnum.Printer == handHeldItems[i].GetComponent<HandHeldItem>().task)
+            {
+                currentHoldItem = handHeldItems[i];
+                currentHoldItem.SetActive(true);
+                currentHoldItem.transform.SetParent(handSlot, false);
+
+            }
+            else if (task == taskEnum.Coffee && taskEnum.Coffee == handHeldItems[i].GetComponent<HandHeldItem>().task)
+            {
+                currentHoldItem = handHeldItems[i];
+                currentHoldItem.SetActive(true);
+                currentHoldItem.transform.SetParent(handSlot, false);
+            }
+        }
+    }
+
+    public void OnRecieveVendingMachine(HandHeldItem item)
+    {
+        for (int i = 0; i < handHeldItems.Count; i++)
+        {
+            if (item.CurrentHandHeldItem == handHeldItems[i].GetComponent<HandHeldItem>().CurrentHandHeldItem)
+            {
+                currentHoldItem = handHeldItems[i];
+                currentHoldItem.SetActive(true);
+                currentHoldItem.transform.SetParent(handSlot, false);
+            }
+        }
     }
 
     private void IsTriggered(object sender, Action e)
@@ -97,35 +98,5 @@ public class InteractionManager : SavableObject
     {
         currentStationCallback?.Invoke();
     }
-    //protected override void OnSaveData(object e, EventArgs args)
-    //{
-    //    onPlayerSaveData?.Invoke(this, new PlayerData(transform.position, currentHoldItem));
-    //}
-
-    public void HoldItem(GameObject item)
-    {
-        if (currentHoldItem)
-            Destroy(currentHoldItem);
-
-        currentHoldItem = item;
-        item.transform.SetParent(handSlot);
-        item.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-
-        var colliders = item.GetComponentsInChildren<Collider>();
-        foreach (var collider in colliders)
-            collider.enabled = false;
-    }
-
-    public string ItemName(int index)
-    {
-        return handHeldItems[index].name;
-    }
-
-    public string HandItemName()
-    {
-        if (currentHoldItem)
-            return currentHoldItem.name;
-
-        return "no item!";
-    }
+  
 }

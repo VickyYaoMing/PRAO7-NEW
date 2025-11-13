@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7712274298276179678}
   - component: {fileID: 2984783361445687761}
   - component: {fileID: 7800309441970762188}
+  - component: {fileID: -1121337192156124251}
   m_Layer: 0
   m_Name: WaterBottle
   m_TagString: Untagged
@@ -99,6 +100,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-1121337192156124251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3178765163848673777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79d0bcf997f8a7468c182350bdaef21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentHandHeldItem: 5
+  spriteIcon: {fileID: 21300000, guid: 38c20e3e396318f4fb2d0af637468380, type: 3}
+  task: 0
 --- !u!1001 &8707459419906778604
 PrefabInstance:
   m_ObjectHideFlags: 0

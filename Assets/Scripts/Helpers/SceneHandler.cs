@@ -1,14 +1,21 @@
-using System;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public abstract class SavableObject : MonoBehaviour
+public class SceneHandler : MonoBehaviour
 {
-    //protected virtual void OnEnable() => SceneEventHandler.TaskSceneEnter += OnSaveData;
-    //protected virtual void OnDisable() => SceneEventHandler.TaskSceneEnter -= OnSaveData;
-    //protected abstract void OnSaveData(object e, EventArgs args);
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        
+    }
 
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 }
 
 public static class SceneEventHandler
@@ -79,7 +86,7 @@ public static class Scene
                 continue;
 
             obj.SetActive(false);
-		}
+        }
 
         // set new scene active
         SceneManager.SetActiveScene(loadedScenes[sceneName]);
@@ -135,7 +142,7 @@ public static class Scene
 
     public static void ClearAll()
     {
-        foreach(var loadedScene in loadedScenes.Keys)
+        foreach (var loadedScene in loadedScenes.Keys)
         {
             if (loadedScene == StringLiterals.MAIN_SCENE)
                 continue;

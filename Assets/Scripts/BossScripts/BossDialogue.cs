@@ -45,7 +45,6 @@ public class BossDialogue : MonoBehaviour
             // if (hasCorrectItem) OnTaskAchieved();
 
             //CheckHandItem();
-            Boss.Instance.CheckItemTasks();
         }
     }
 
@@ -95,4 +94,3 @@ public class BossDialogue : MonoBehaviour
     //    }
     //}
 }
-public enum taskIDEnum { VendingMachine = 0, Printer = 1, Coffee = 2, Mopping = 3}

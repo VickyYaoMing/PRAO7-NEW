@@ -8,22 +8,19 @@ public class GUITimerManager : MonoBehaviour
     [SerializeField] private List<GameObject> TaskObjects;
     //private HashSet<Task> taskBuffer;
 
-    private Boss boss;
+    //private Boss boss;
 
     private void Start()
     {
-        boss = bossObject.GetComponent<Boss>();
+        //boss = bossObject.GetComponent<Boss>();
 
         if (TaskObjects == null)
         {
             TaskObjects = new List<GameObject>();
         }
 
-        if (boss != null)
-        {
-            boss.TaskAdded += OnTaskAdded;
-            boss.TaskRemoved += OnTaskRemoved;
-        }
+        TaskManager.TaskAdded += OnTaskAdded;
+        TaskManager.TaskRemoved += OnTaskRemoved;
 
         //if (taskBuffer == null)
         //{
@@ -43,10 +40,10 @@ public class GUITimerManager : MonoBehaviour
         //{
         //    TaskObjects[1].GetComponentInChildren<GUITimer>().Initialize(task);
         //}
-        foreach(var obj in TaskObjects)
+        foreach (var obj in TaskObjects)
         {
             var gui = obj.GetComponentInChildren<GUITimer>();
-            if (gui.taskStationId == task.id)
+            if (gui.taskStationId == task.task)
             {
                 gui.Initialize(task);
                 break;
@@ -69,9 +66,10 @@ public class GUITimerManager : MonoBehaviour
         foreach (var obj in TaskObjects)
         {
             var gui = obj.GetComponentInChildren<GUITimer>();
-            if (gui.taskStationId == task.id)
+            if (gui == null) return;
+            if (gui.taskStationId == task.task)
             {
-                Destroy(gui);
+                gui.OnRemove();
                 break;
             }
         }

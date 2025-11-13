@@ -14,7 +14,7 @@ public class VendingMachine : TaskBase
 
     private void Start()
     {
-        Timer.Create(.5f, true, false, false, "VendingMachine Timer").Timeout += Blink;
+        //Timer.Create(.5f, true, false, false, "VendingMachine Timer").Timeout += Blink;
     }
 
     protected override void Update()
@@ -28,8 +28,8 @@ public class VendingMachine : TaskBase
             {
                 if (hitInfo.rigidbody != null)
                 {
-                    returnItem = hitInfo.transform.gameObject;
-                    DestroyImmediate(hitInfo.rigidbody);    // remove rigidbody so it stays in players hand
+                    HandHeldItem item = hitInfo.collider.gameObject.GetComponent<HandHeldItem>();
+                    heldItem = item;
                     OnMissionAccomplished();
 
                     Scene.Exit(true);

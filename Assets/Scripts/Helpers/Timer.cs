@@ -1,6 +1,32 @@
 using System;
 using UnityEngine;
 
+public class TimerEasy
+{
+    public float totalTime { get; set; }
+    public float currentTime { get; private set; }
+    public bool isTimerDone = false;
+    public float Ratio => totalTime <= 0f ? 0f : Mathf.Clamp01(currentTime / totalTime);   
+    public TimerEasy(float totalTime)
+    {
+        this.totalTime = totalTime;
+    }
+    public void ResetTimer()
+    {
+        isTimerDone = false;
+        currentTime = totalTime;
+    }
+
+    public void UpdateTimer(float time)
+    {
+        currentTime -= time;
+        if (currentTime < 0)
+        {
+            isTimerDone = true;
+        }
+    }
+}
+
 public class Timer : MonoBehaviour
 {
     public float WaitTime { get; private set; }
@@ -107,4 +133,13 @@ public class Timer : MonoBehaviour
         if (gameObject != null)
             Destroy(gameObject);
     }
+
 }
+
+
+
+
+
+
+
+
