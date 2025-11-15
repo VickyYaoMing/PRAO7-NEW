@@ -31,6 +31,15 @@ public class TaskManager : MonoBehaviour
         timeBetweenAddingTasks.ResetTimer();
     }
 
+    private void OnEnable()
+    {
+        InteractionManager.missionAccomplished += TaskAccomplished;
+    }
+
+    private void OnDisable()
+    {
+        InteractionManager.missionAccomplished += TaskAccomplished;
+    }
     private void AddTaskToActive()
     {
         if (amountOfActiveTasks >= maximumAmountOfTasksThatCanBeActive ) return;
@@ -47,8 +56,7 @@ public class TaskManager : MonoBehaviour
 
             for (int i = 0; i < currentIndex; i++)
             {
-                if (currentActiveTasks[i] != null &&
-                    currentActiveTasks[i].task == task.task)
+                if (currentActiveTasks[i] != null & currentActiveTasks[i].task == task.task)
                 {
                     alreadyActive = true;
                     break;
@@ -92,7 +100,23 @@ public class TaskManager : MonoBehaviour
             }
         }
     }
-
+    public bool TaskAccomplished(taskEnum task)
+    {
+        for(int i = 0; i < currentIndex; i++)
+        {
+            Task taskItem = currentActiveTasks[i];
+            if (taskItem == null) continue;
+            if (task == taskItem.task)
+            {
+                TaskRemoved?.Invoke(taskItem);
+                RemoveTaskAtIndex(i);
+                i--;
+                amountOfActiveTasks--;
+                return true;
+            }
+        }
+        return false;
+    }
     private void RemoveTaskAtIndex(int index)
     {
         for (int j = index; j < currentIndex - 1; j++)
@@ -116,8 +140,6 @@ public class TaskManager : MonoBehaviour
             allTasks[i] = task;
         }
     }
-
-
     private void SpawnIcon(Sprite icon)
     {
         Image img = iconSpawn.GetComponent<Image>();

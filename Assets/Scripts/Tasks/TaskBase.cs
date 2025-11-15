@@ -28,9 +28,14 @@ public abstract class TaskBase : MonoBehaviour
     }
     protected virtual void OnMissionAccomplished()
     {
-        if (heldItem != null) InteractionManager.Instance.OnRecieveVendingMachine(heldItem); 
-        if (hasReturnItem) InteractionManager.Instance.OnRecieveItem(taskID);
-        //Exit();
+        if (heldItem != null)
+        {
+            InteractionManager.Instance.OnRecieveVendingMachine(heldItem);
+        }
+        else
+        {
+            InteractionManager.Instance.OnRecieveItem(taskID);
+        }
     }
 
     public void Exit(bool unload = false)

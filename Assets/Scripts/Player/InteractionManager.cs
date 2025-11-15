@@ -20,7 +20,8 @@ public class InteractionManager : MonoBehaviour
     }
 
     private static InteractionManager instance;
-
+    public delegate bool CheckIfMissionIsAccomplished(taskEnum task);
+    public static CheckIfMissionIsAccomplished missionAccomplished;
     private Action currentStationCallback;
     private GameObject currentHoldItem = null;
     [SerializeField] private Transform handSlot;
@@ -52,12 +53,16 @@ public class InteractionManager : MonoBehaviour
     private void OnItemDrop()
     {
         currentHoldItem.SetActive(false);
-        currentHoldItem.transform.SetParent(handSlot, false);
+        currentHoldItem.transform.SetParent(null);
         currentHoldItem = null;
     }
     public void OnRecieveItem(taskEnum task)
     {
-        if (task == taskEnum.Mopping) return;
+        if (task == taskEnum.Mopping)
+        {
+            missionAccomplished?.Invoke(task);
+            return;
+        }
 
         for(int i = 0; i < handHeldItems.Count; i++)
         {
@@ -65,14 +70,33 @@ public class InteractionManager : MonoBehaviour
             {
                 currentHoldItem = handHeldItems[i];
                 currentHoldItem.SetActive(true);
-                currentHoldItem.transform.SetParent(handSlot, false);
-
+                HoldItem();
             }
             else if (task == taskEnum.Coffee && taskEnum.Coffee == handHeldItems[i].GetComponent<HandHeldItem>().task)
             {
                 currentHoldItem = handHeldItems[i];
                 currentHoldItem.SetActive(true);
-                currentHoldItem.transform.SetParent(handSlot, false);
+                HoldItem();
+            }
+        }
+    }
+
+    private void HoldItem()
+    {
+        currentHoldItem.transform.SetParent(handSlot);
+        currentHoldItem.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(StringLiterals.BOSS_TAG))
+        {
+            if (currentHoldItem == null) return;
+
+            taskEnum task = currentHoldItem.GetComponent<HandHeldItem>().task;
+            if ((bool)(missionAccomplished?.Invoke(task)))
+            {
+                OnItemDrop();
             }
         }
     }
@@ -85,7 +109,7 @@ public class InteractionManager : MonoBehaviour
             {
                 currentHoldItem = handHeldItems[i];
                 currentHoldItem.SetActive(true);
-                currentHoldItem.transform.SetParent(handSlot, false);
+                HoldItem();
             }
         }
     }

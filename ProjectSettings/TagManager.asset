@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Paper
   - TrashBin
+  - Boss
   layers:
   - Default
   - TransparentFX
