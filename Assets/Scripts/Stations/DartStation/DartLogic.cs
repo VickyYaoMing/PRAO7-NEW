@@ -1,3 +1,4 @@
+﻿using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
@@ -6,18 +7,26 @@ using UnityEngine.WSA;
 public class DartLogic : MonoBehaviour
 {
     [SerializeField] private Rigidbody rigidBody;
-    private float maxAimAngle = 30f;      
-    private float aimSensitivity = 0.1f;
-    private bool arrowHasBeenClicked = false;
+
+
+    private float maxSideOffset = 0.2f;    
+    private float aimSensitivity = 0.0005f; 
+
+    private float maxAimAngle = 30f;
     private Vector3 restPosition;
     private Quaternion restRotation;
     private Vector3 mouseStartPosition = Vector3.zero;
     private float currentPull;
-    private float currentAimAngle;
-    private float gravity = -9.82f;
+    private float maxPullDistance = 0.19f;    
+    private float maxLaunchSpeed = 15f;
 
-    private float maxPullDistance = 50f;    
-    private float maxLaunchSpeed = 1500f;
+    public static Action OnDartMissed;
+    public static Action OnDartHit;
+    private bool hasCollidedOnce = false;
+    private bool hasBeenShot = false;
+    private bool arrowHasBeenClicked = false;
+
+
     void Start()
     {
         restPosition = transform.position;
@@ -30,21 +39,35 @@ public class DartLogic : MonoBehaviour
         OnArrowClick();
         OnArrowHold();
         OnArrowRelease();
+        if (hasBeenShot && transform.position.y < 0 && !hasCollidedOnce)
+        {
+            OnDartMissed?.Invoke();
+            hasCollidedOnce = true;
+        }
+
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnEnable()
     {
+        hasCollidedOnce = false;
+    }
+    private void OnCollisionEnter(Collision other)
+    {
+        if (hasCollidedOnce) return;
         if (other.gameObject.CompareTag("DartBoard"))
         {
             rigidBody.isKinematic = true;
+            OnDartHit?.Invoke();
+            hasCollidedOnce = true;
         }
         else if (other.gameObject.CompareTag("Wall"))
         {
             rigidBody.isKinematic = true;
+            OnDartMissed?.Invoke();
+            hasCollidedOnce = true;
 
         }
     }
-
     private void OnArrowClick()
     {
         if (Input.GetMouseButtonDown(0))
@@ -73,15 +96,18 @@ public class DartLogic : MonoBehaviour
         {
             Vector3 mouseDelta = Input.mousePosition - mouseStartPosition;
 
-            float dragAmount = mouseDelta.magnitude * 0.1f;
-            currentPull = Mathf.Clamp(dragAmount, 0f, maxPullDistance);
-            transform.position = restPosition - transform.forward * currentPull;
-            //transform.position = new Vector3()
+            float pullRaw = -mouseDelta.y * aimSensitivity;  
+            currentPull = Mathf.Clamp(pullRaw, 0f, maxPullDistance);
 
-            currentAimAngle = Mathf.Clamp(mouseDelta.y * aimSensitivity, -maxAimAngle, maxAimAngle);
+            float sideOffset = Mathf.Clamp(mouseDelta.x * aimSensitivity, -maxSideOffset, maxSideOffset);
+            Vector3 newPos = restPosition + transform.right * sideOffset - transform.forward * currentPull;
+            transform.position = newPos;
 
-            Quaternion pitch = Quaternion.AngleAxis(-currentAimAngle, transform.right);
-            transform.rotation = pitch * restRotation;
+            float currentPitch = Mathf.Clamp(-mouseDelta.y * 0.01f, -maxAimAngle, maxAimAngle);
+            float currentYaw = Mathf.Clamp(mouseDelta.x * 0.01f, -maxAimAngle, maxAimAngle);
+
+            Quaternion aimRotation = Quaternion.Euler(-currentPitch, -currentYaw, 0f);
+            transform.rotation = restRotation * aimRotation;
         }
     }
 
@@ -90,27 +116,22 @@ public class DartLogic : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0) && arrowHasBeenClicked)
         {
+            hasBeenShot = true;
             arrowHasBeenClicked = false;
 
             float pull01 = currentPull / maxPullDistance;
             float launchSpeed = pull01 * maxLaunchSpeed;
 
             rigidBody.isKinematic = false;
+            rigidBody.useGravity = true;
 
-            Vector3 horiz = new Vector3(transform.forward.x, 0f, transform.forward.z).normalized;
+            Vector3 launchDir = transform.forward;
 
-            float angleRad = currentAimAngle * Mathf.Deg2Rad;
-
-            float vxz = launchSpeed * Mathf.Cos(angleRad);
-            float vy = launchSpeed * Mathf.Sin(angleRad); 
-
-            Vector3 launchVelocity = horiz * vxz + Vector3.up * vy;
-
-            rigidBody.linearVelocity = launchVelocity;
-
+            rigidBody.linearVelocity = launchDir.normalized * launchSpeed;
             currentPull = 0f;
         }
     }
+
 
 
 
