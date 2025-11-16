@@ -1,81 +1,62 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TaskManager : MonoBehaviour
 {
-    [SerializeField] public List<HandHeldItem> allHandHeldItems;
+
+    public static TaskManager Instance
+    {
+        get
+        {
+            if (!instance)
+                Debug.LogError("No taskManager");
+
+            return instance;
+        }
+    }
+
+    private static TaskManager instance;
+
     [SerializeField] private GameObject iconSpawn;
+    [SerializeField] private List<Task> allTasks;
 
     public int maximumAmountOfTasksThatCanBeActive { get; set; } = 3;
 
     private Task[] currentActiveTasks;
-    private Task[] allTasks;
     private int currentIndex = 0;
-    private int amountOfActiveTasks;
+    private int amountOfActiveTasks = 0;
     private TimerEasy timeBetweenAddingTasks;
 
     public static event Action<Task> TaskAdded;
     public static event Action<Task> TaskRemoved;
+    public static event Action<Task> OnTaskAccomplished;
+
 
     private void Start()
     {
+        instance = this;
         iconSpawn.SetActive(false);
         currentActiveTasks = new Task[maximumAmountOfTasksThatCanBeActive];
-        allTasks = new Task[allHandHeldItems.Count];
-        CreateAllTasks();
         AddTaskToActive();
 
         timeBetweenAddingTasks = new TimerEasy(7f);
         timeBetweenAddingTasks.ResetTimer();
     }
-
-    private void OnEnable()
-    {
-        InteractionManager.missionAccomplished += TaskAccomplished;
-    }
-
-    private void OnDisable()
-    {
-        InteractionManager.missionAccomplished += TaskAccomplished;
-    }
     private void AddTaskToActive()
     {
         if (amountOfActiveTasks >= maximumAmountOfTasksThatCanBeActive ) return;
 
-        Task task = null;
-
-        const int maxTries = 20;
-        int tries = 0;
-
-        while (tries < maxTries)
-        {
-            task = allTasks[UnityEngine.Random.Range(0, allTasks.Length)];
-            bool alreadyActive = false;
-
-            for (int i = 0; i < currentIndex; i++)
-            {
-                if (currentActiveTasks[i] != null & currentActiveTasks[i].task == task.task)
-                {
-                    alreadyActive = true;
-                    break;
-                }
-            }
-            if (!alreadyActive) break;
-
-            tries++;
-        }
-
-        task.timer.ResetTimer();                     
+        Task task = allTasks[UnityEngine.Random.Range(0, allTasks.Count)];
         currentActiveTasks[currentIndex] = task;
         currentIndex++;
-
-        SpawnIcon(task.returnItem.spriteIcon); 
+        SpawnIcon(task.sprite); 
         TaskAdded?.Invoke(task);
         amountOfActiveTasks++;
+        Debug.Log("Task has been added: " + task.task);
     }
-
 
     private void Update()
     {
@@ -85,22 +66,8 @@ public class TaskManager : MonoBehaviour
             AddTaskToActive();
             timeBetweenAddingTasks.ResetTimer();
         }
-
-        for (int i = 0; i < currentIndex; i++)
-        {
-            Task task = currentActiveTasks[i];
-            if (task == null) continue;
-            task.timer.UpdateTimer(Time.deltaTime);
-            if (task.timer.isTimerDone)
-            {
-                TaskRemoved?.Invoke(task);
-                RemoveTaskAtIndex(i);
-                i--;
-                amountOfActiveTasks--;
-            }
-        }
     }
-    public bool TaskAccomplished(taskEnum task)
+    public void TaskAccomplished(taskEnum task)
     {
         for(int i = 0; i < currentIndex; i++)
         {
@@ -109,13 +76,13 @@ public class TaskManager : MonoBehaviour
             if (task == taskItem.task)
             {
                 TaskRemoved?.Invoke(taskItem);
+                OnTaskAccomplished?.Invoke(taskItem);
                 RemoveTaskAtIndex(i);
                 i--;
                 amountOfActiveTasks--;
-                return true;
+                Debug.Log("Task accomplished " + task);
             }
         }
-        return false;
     }
     private void RemoveTaskAtIndex(int index)
     {
@@ -127,34 +94,16 @@ public class TaskManager : MonoBehaviour
         currentIndex--;
     }
 
-    private void CreateAllTasks()
-    {
-        for (int i = 0; i < allHandHeldItems.Count; i++)
-        {
-            Task task = new Task();
-            HandHeldItem item = allHandHeldItems[UnityEngine.Random.Range(0, allHandHeldItems.Count)];
-            task.task = item.task;
-            TimerEasy timer = new TimerEasy(10f);
-            task.timer = timer;
-            task.returnItem = item;
-            allTasks[i] = task;
-        }
-    }
     private void SpawnIcon(Sprite icon)
     {
         Image img = iconSpawn.GetComponent<Image>();
         img.sprite = icon;
-
         iconSpawn.SetActive(true);
     }
+
 }
-public class Task
-{
-    public taskEnum task;
-    public TimerEasy timer;
-    public HandHeldItem returnItem;
-}
-public enum taskEnum { VendingMachine, Printer, Coffee, Mopping }
-public enum HandHeldItemEnum { Milk, Chips, Sandwich, EnergyDrink, Pills, Water, Donut, JellyBean, Coffee, Paper, None }
+
+public enum taskEnum { Dart, Printer, Coffee, Mopping }
+
 
 

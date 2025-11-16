@@ -7,6 +7,8 @@ TagManager:
   - Paper
   - TrashBin
   - Boss
+  - Wall
+  - DartBoard
   layers:
   - Default
   - TransparentFX

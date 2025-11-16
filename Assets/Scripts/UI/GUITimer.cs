@@ -39,7 +39,7 @@ public class GUITimer : MonoBehaviour
     {
         if (created && mySlider != null)
         {
-            mySlider.value = myTask.timer.Ratio;
+            //mySlider.value = myTask.timer.Ratio;
 
         }
     }

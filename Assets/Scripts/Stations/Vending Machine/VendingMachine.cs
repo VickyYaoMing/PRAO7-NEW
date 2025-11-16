@@ -28,8 +28,6 @@ public class VendingMachine : TaskBase
             {
                 if (hitInfo.rigidbody != null)
                 {
-                    HandHeldItem item = hitInfo.collider.gameObject.GetComponent<HandHeldItem>();
-                    heldItem = item;
                     OnMissionAccomplished();
 
                     Scene.Exit(true);

@@ -7,7 +7,6 @@ public abstract class TaskBase : MonoBehaviour
 {
     [SerializeField] protected bool hasReturnItem = true;
     [SerializeField] private taskEnum taskID;
-    protected HandHeldItem heldItem = null;
     protected bool MissionWasAccomplished = false;
 
     protected virtual void Update()
@@ -16,8 +15,6 @@ public abstract class TaskBase : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            
-            Debug.Log(MissionWasAccomplished ? "Mission accomplished" : "Mission NOT successful");
             Exit();
         }
 
@@ -28,14 +25,7 @@ public abstract class TaskBase : MonoBehaviour
     }
     protected virtual void OnMissionAccomplished()
     {
-        if (heldItem != null)
-        {
-            InteractionManager.Instance.OnRecieveVendingMachine(heldItem);
-        }
-        else
-        {
-            InteractionManager.Instance.OnRecieveItem(taskID);
-        }
+       TaskManager.Instance.TaskAccomplished(taskID);
     }
 
     public void Exit(bool unload = false)
