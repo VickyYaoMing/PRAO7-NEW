@@ -19,8 +19,8 @@ public class GUITimerManager : MonoBehaviour
             TaskObjects = new List<GameObject>();
         }
 
-        TaskManager.TaskAdded += OnTaskAdded;
-        TaskManager.TaskRemoved += OnTaskRemoved;
+        //TaskManager.TaskAdded += OnTaskAdded;
+        //TaskManager.TaskRemoved += OnTaskRemoved;
 
         //if (taskBuffer == null)
         //{

@@ -12,7 +12,7 @@ public static class StringLiterals
     public static string COFFE_SCENE = "CoffeScene";
     public static string PRINT_SCENE = "PrintingScene";
     public static string TESTSTATION_SCENE = "InteractionTest";
-    public static string MAIN_SCENE = "Map - test";
+    public static string MAIN_SCENE = "Map";
     public static string VENDING_MACHINE_SCENE = "VendingMachineScene";
     public static string MOPPING_SCENE = "MoppingScene";
 
