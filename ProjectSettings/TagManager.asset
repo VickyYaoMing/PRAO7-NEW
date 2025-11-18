@@ -8,7 +8,7 @@ TagManager:
   - TrashBin
   - Boss
   - Wall
-  - DartBoard
+  - NPC
   layers:
   - Default
   - TransparentFX

@@ -1,0 +1,87 @@
+using System;
+using System.Collections.Generic;
+using NUnit.Framework;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class TaskGiver : MonoBehaviour
+{
+    [SerializeField] private List<Task> availableTasks;
+    [SerializeField] private GameObject imageSpawn;
+    [SerializeField] private TimerEasy timerTaskSpawn;
+    private Task currentTask = null;
+    private bool isTaskActive = false;
+    public delegate bool CheckIfPlayerHasItem(taskEnum task);
+    public static event CheckIfPlayerHasItem triggerHasBeenEntered;
+
+    private void Start()
+    {
+        imageSpawn.SetActive(false);
+        timerTaskSpawn = new TimerEasy(UnityEngine.Random.Range(0, 5));
+    }
+
+    private void OnEnable()
+    {
+        InteractionManager.returnItemToNpc += TaskSucceed;
+    }
+    private void OnDisable()
+    {
+        InteractionManager.returnItemToNpc -= TaskSucceed;
+    }
+    private void SpawnIcon(Sprite icon)
+    {
+        Image img = imageSpawn.GetComponent<Image>();
+        img.sprite = icon;
+        imageSpawn.SetActive(true);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (currentTask == null) return;
+        if (currentTask.task == taskEnum.Dart || currentTask.task == taskEnum.Mopping) return;
+        if(other.CompareTag(StringLiterals.PLAYER_TAG))
+        {
+            if (triggerHasBeenEntered.Invoke(currentTask.task))
+            {
+                CleanUpTask();
+            }
+        }
+    }
+
+    private void Update()
+    {
+        timerTaskSpawn.UpdateTimer(Time.deltaTime);
+        if(timerTaskSpawn.isTimerDone && !isTaskActive)
+        {
+            ActivateTask();
+        }
+    }
+
+    private void CleanUpTask()
+    {
+        timerTaskSpawn = new TimerEasy(UnityEngine.Random.Range(2, 5));
+        timerTaskSpawn.ResetTimer();
+        isTaskActive = false;
+        imageSpawn.SetActive(false);
+        currentTask = null;
+    }
+
+    private void TaskSucceed(taskEnum task)
+    {
+        if (currentTask == null) return;
+        if(task == currentTask.task)
+        {
+            CleanUpTask();
+        }
+    }
+
+    private void ActivateTask()
+    {
+        isTaskActive = true;
+        currentTask = availableTasks[UnityEngine.Random.Range(0, availableTasks.Count)];
+        SpawnIcon(currentTask.sprite);
+        Debug.Log("Task active: " +  currentTask.task); 
+    }
+
+
+}

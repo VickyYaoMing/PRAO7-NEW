@@ -49,6 +49,7 @@ public class DartLogic : MonoBehaviour
 
     private void OnEnable()
     {
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
         hasCollidedOnce = false;
     }
     private void OnCollisionEnter(Collision other)
@@ -60,7 +61,7 @@ public class DartLogic : MonoBehaviour
             OnDartHit?.Invoke();
             hasCollidedOnce = true;
         }
-        else if (other.gameObject.CompareTag("Wall"))
+        else
         {
             rigidBody.isKinematic = true;
             OnDartMissed?.Invoke();

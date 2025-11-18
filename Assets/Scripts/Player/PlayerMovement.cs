@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public void ProcessMove(Vector2 input)
     {
         HandleWalkingAnimation(input);
-        Vector3 moveDir = new Vector3(-input.y, 0f, input.x);
+        Vector3 moveDir = new Vector3(input.x, 0f, input.y);
 
         if (moveDir.sqrMagnitude > 0.0001f)
         {

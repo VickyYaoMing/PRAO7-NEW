@@ -1630,7 +1630,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0176e14e5f96ac34386013fe6e28cf88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handSlot: {fileID: 5315397951780978094}
 --- !u!114 &8857041210930710938
 MonoBehaviour:
   m_ObjectHideFlags: 0

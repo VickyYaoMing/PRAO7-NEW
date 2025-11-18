@@ -25,7 +25,7 @@ public abstract class TaskBase : MonoBehaviour
     }
     protected virtual void OnMissionAccomplished()
     {
-       TaskManager.Instance.TaskAccomplished(taskID);
+        InteractionManager.Instance.OnRecieveItem(taskID);
     }
 
     public void Exit(bool unload = false)

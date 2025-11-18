@@ -5,12 +5,14 @@ public static class StringLiterals
     //TAGS
     public static string PLAYER_TAG = "Player";
     public static string BOSS_TAG = "Boss";
+    public static string NPC_TAG = "NPC";
+
 
     //SCENES
     public static string COFFE_SCENE = "CoffeScene";
     public static string PRINT_SCENE = "PrintingScene";
     public static string TESTSTATION_SCENE = "InteractionTest";
-    public static string MAIN_SCENE = "MapScene";
+    public static string MAIN_SCENE = "Map - test";
     public static string VENDING_MACHINE_SCENE = "VendingMachineScene";
     public static string MOPPING_SCENE = "MoppingScene";
 

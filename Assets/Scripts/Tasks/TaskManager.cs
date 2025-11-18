@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class TaskManager : MonoBehaviour
 {
-
     public static TaskManager Instance
     {
         get
@@ -21,7 +20,7 @@ public class TaskManager : MonoBehaviour
     private static TaskManager instance;
 
     [SerializeField] private GameObject iconSpawn;
-    [SerializeField] private List<Task> allTasks;
+    [SerializeField] public List<Task> allTasks;
 
     public int maximumAmountOfTasksThatCanBeActive { get; set; } = 3;
 
@@ -38,7 +37,7 @@ public class TaskManager : MonoBehaviour
     private void Start()
     {
         instance = this;
-        iconSpawn.SetActive(false);
+        //iconSpawn.SetActive(false);
         currentActiveTasks = new Task[maximumAmountOfTasksThatCanBeActive];
         AddTaskToActive();
 
@@ -52,7 +51,7 @@ public class TaskManager : MonoBehaviour
         Task task = allTasks[UnityEngine.Random.Range(0, allTasks.Count)];
         currentActiveTasks[currentIndex] = task;
         currentIndex++;
-        SpawnIcon(task.sprite); 
+        //SpawnIcon(task.sprite); 
         TaskAdded?.Invoke(task);
         amountOfActiveTasks++;
         Debug.Log("Task has been added: " + task.task);

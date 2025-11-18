@@ -13,7 +13,6 @@ public class PrinterController : TaskBase
     public GameObject paperPrefab; 
     public Transform paperSpawnPoint;
     public float spawnForce = 5f; 
-    public Transform player; 
     public float spawnDistanceThreshold = 10f; // X distance threshold
     public int requiredFarPapersCount = 3;
 

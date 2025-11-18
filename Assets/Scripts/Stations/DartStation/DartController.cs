@@ -5,10 +5,13 @@ using UnityEngine;
 public class DartController : TaskBase
 {
     [SerializeField] private GameObject arrowObject;
-    private int maximumAmountOfTries = 10;
+    private int maximumAmountOfTries = 3;
     private GameObject[] arrows;
     private int currentArrowIndex = 0;
-    void Start()
+    private Vector3 defaultPosition;
+    private Quaternion defaultRotation;
+
+    void Awake()
     {
         arrows = new GameObject[maximumAmountOfTries];
         for(int i = 0; i < maximumAmountOfTries; i++)
@@ -18,14 +21,19 @@ public class DartController : TaskBase
         }
 
         arrows[currentArrowIndex].SetActive(true);
+        defaultPosition = arrows[currentArrowIndex].transform.position;
+        defaultRotation = arrows[currentArrowIndex].transform.rotation;
         currentArrowIndex++;
     }
 
     private void OnReset()
     {
-        for(int i = 0; i < maximumAmountOfTries; i++)
+        MissionWasAccomplished = false;
+        for(int i = 0; i < arrows.Length; i++)
         {
             arrows[i].SetActive(false);
+            arrows[i].transform.position = defaultPosition;
+            arrows[i].transform.rotation = defaultRotation;
         }
         currentArrowIndex = 0;
         arrows[currentArrowIndex].SetActive(true);
@@ -33,6 +41,7 @@ public class DartController : TaskBase
     }
     private void OnEnable()
     {
+        OnReset();
         DartLogic.OnDartHit += OnHit;
         DartLogic.OnDartMissed += OnMiss;
     }
@@ -41,17 +50,12 @@ public class DartController : TaskBase
     {
         DartLogic.OnDartHit -= OnHit;
        DartLogic.OnDartMissed -= OnMiss;
-    }
 
+    }
     private void OnHit()
     {
         MissionWasAccomplished = true;
-        StartCoroutine(TimerForExiting());
-    }
-    private IEnumerator TimerForExiting()
-    {
-        yield return new WaitForSeconds(3f);
-        Exit();
+        Exit(true);
     }
     private void OnMiss()
     {
@@ -63,14 +67,14 @@ public class DartController : TaskBase
         yield return new WaitForSeconds(1f);
 
         if (currentArrowIndex >= maximumAmountOfTries) 
-        { 
-            Debug.LogWarning("You suck no more tries for you, come back later we will need to buy in more arrows");
-            yield return new WaitForSeconds(0f);
+        {
+            OnReset();
         }
-
-        arrows[currentArrowIndex].SetActive(true);
-        currentArrowIndex++;
-
+        else
+        {
+            arrows[currentArrowIndex].SetActive(true);
+            currentArrowIndex++;
+        }
     }
     protected override void Update()
     {
