@@ -81,10 +81,6 @@ public static class Scene
             if (obj.TryGetComponent(out Timer _))
                 continue;
 
-            // dont disable Sound Manager!!
-            if (obj.TryGetComponent(out SoundManager _))
-                continue;
-
             obj.SetActive(false);
         }
 

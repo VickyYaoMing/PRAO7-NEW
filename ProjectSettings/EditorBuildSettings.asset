@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MiniGames/VendingMachineScene.unity
     guid: 927f55f1ae4c772408ad0067a9e720a2
   - enabled: 1
-    path: Assets/Scenes/Map/Map - test.unity
+    path: Assets/Scenes/Map/Map.unity
     guid: 985f8f390d1fcf5488c6af2deaa64bb3
   - enabled: 0
     path: Assets/Scenes/MiniGames/CoffeScene.unity

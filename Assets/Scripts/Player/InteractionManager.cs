@@ -46,11 +46,15 @@ public class InteractionManager : MonoBehaviour
     {
         StationBase.stationEntered += IsTriggered;
         TaskGiver.triggerHasBeenEntered += IsNpcTriggered;
+        TrashInteract.throwAwayCurrentItem += ThrowAwayCurrentItem;
+
     }
     protected void OnDisable()
     {
         StationBase.stationEntered -= IsTriggered;
         TaskGiver.triggerHasBeenEntered -= IsNpcTriggered;
+        TrashInteract.throwAwayCurrentItem -= ThrowAwayCurrentItem;
+
 
     }
     private bool IsNpcTriggered(taskEnum task)
@@ -67,6 +71,12 @@ public class InteractionManager : MonoBehaviour
             return false;
         }
 
+    }
+
+    private void ThrowAwayCurrentItem()
+    {
+        currentHoldableItem.SetActive(false);
+        currentHoldableItem = null;
     }
     public void OnRecieveItem(taskEnum task)
     {
