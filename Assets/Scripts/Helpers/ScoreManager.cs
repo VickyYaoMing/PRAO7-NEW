@@ -3,8 +3,7 @@ using UnityEngine;
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance { get; private set; }
-    private static int totalPoints = 0;
-
+    public static int totalPoints = 0;
     private void OnEnable()
     {
         TaskGiver.taskScore += CalculateTotalScore;
@@ -26,7 +25,12 @@ public class ScoreManager : MonoBehaviour
 
     private void CalculateTotalScore(int points)
     {
-        points += totalPoints;
+        totalPoints += points;
+    }
+
+    public void ResetScore()
+    {
+        totalPoints = 0;
     }
 
 }

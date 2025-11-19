@@ -48,7 +48,7 @@ public class TaskGiver : MonoBehaviour
         {
             if (triggerHasBeenEntered.Invoke(currentTask.task))
             {
-                CleanUpTask();
+                TaskSucceed(currentTask.task);
             }
         }
     }

@@ -29,6 +29,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Sandbox/GameOverScene.unity
     guid: e2b0b36841dcfe949a980d0fe19f9ce1
+  - enabled: 1
+    path: Assets/Scenes/Map/Map 1.unity
+    guid: c39a6e519687f074bb679d18486481c9
+  - enabled: 1
+    path: Assets/Scenes/Map/Map 2.unity
+    guid: fdd695f7515e1364f920b2d881cfa645
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
