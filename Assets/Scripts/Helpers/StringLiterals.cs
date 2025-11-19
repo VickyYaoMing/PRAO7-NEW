@@ -13,8 +13,8 @@ public static class StringLiterals
     public static string PRINT_SCENE = "PrintingScene";
     public static string TESTSTATION_SCENE = "InteractionTest";
     public static string MAIN_SCENE = "Map";
-    public static string VENDING_MACHINE_SCENE = "VendingMachineScene";
     public static string MOPPING_SCENE = "MoppingScene";
+    public static string GAMEOVER_SCENE = "GameOverScene";
 
     //ANIMATION PARAMETERS
     public static string WALKING_ANI = "IsWalking";

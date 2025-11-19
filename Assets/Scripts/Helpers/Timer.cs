@@ -5,27 +5,67 @@ public class TimerEasy
 {
     public float totalTime { get; set; }
     public float currentTime { get; private set; }
-    public bool isTimerDone = false;
-    public float Ratio => totalTime <= 0f ? 0f : Mathf.Clamp01(currentTime / totalTime);   
+
+    private bool hasBeenUpdatedAboutHalfway = false;
+    private bool hasBeenUpdatedAboutAlmost = false;
+
+    public enum TimerEnum
+    {
+        isNotDone,
+        isHalfwayDone,
+        isAlmostDone,
+        isTimerDone
+    }
+
+    public TimerEnum currentState { get; private set; } = TimerEnum.isNotDone;
+
+    public event Action OnHalfwayReached;
+    public event Action OnAlmostDoneReached;
+
     public TimerEasy(float totalTime)
     {
         this.totalTime = totalTime;
-    }
-    public void ResetTimer()
-    {
-        isTimerDone = false;
-        currentTime = totalTime;
+        ResetTimer();
     }
 
-    public void UpdateTimer(float time)
+    public void ResetTimer()
     {
-        currentTime -= time;
-        if (currentTime < 0)
+        currentTime = totalTime;
+        currentState = TimerEnum.isNotDone;
+        hasBeenUpdatedAboutAlmost = false;
+        hasBeenUpdatedAboutHalfway = false;
+    }
+
+    public void UpdateTimer(float deltaTime)
+    {
+        if (currentState == TimerEnum.isTimerDone) return;
+
+        currentTime -= deltaTime;
+
+        if (currentTime <= 0f)
         {
-            isTimerDone = true;
+            currentTime = 0f;
+            currentState = TimerEnum.isTimerDone;
+            return;
+        }
+
+        if (!hasBeenUpdatedAboutAlmost && currentTime <= totalTime * 0.33f)
+        {
+            hasBeenUpdatedAboutAlmost = true;
+            currentState = TimerEnum.isAlmostDone;
+            OnAlmostDoneReached?.Invoke();
+        }
+        else if (!hasBeenUpdatedAboutHalfway && currentTime <= totalTime * 0.5f)
+        {
+            hasBeenUpdatedAboutHalfway = true;
+            currentState = TimerEnum.isHalfwayDone;
+            OnHalfwayReached?.Invoke();
         }
     }
 }
+
+
+
 
 public class Timer : MonoBehaviour
 {

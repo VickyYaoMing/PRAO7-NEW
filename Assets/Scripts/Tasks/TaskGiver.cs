@@ -11,8 +11,13 @@ public class TaskGiver : MonoBehaviour
     [SerializeField] private TimerEasy timerTaskSpawn;
     private Task currentTask = null;
     private bool isTaskActive = false;
+
     public delegate bool CheckIfPlayerHasItem(taskEnum task);
     public static event CheckIfPlayerHasItem triggerHasBeenEntered;
+    public static Action<GameObject> AddTaskTimer;
+    public static Action<int> taskScore;
+    private enum TaskState { Red, Yellow, Green };
+    private TaskState currentTaskState = TaskState.Green;
 
     private void Start()
     {
@@ -48,10 +53,27 @@ public class TaskGiver : MonoBehaviour
         }
     }
 
+    public void TaskIsYellow()
+    {
+        if (currentTask == null) return;
+        Image img = imageSpawn.GetComponent<Image>();
+        img.color = Color.yellow;
+        currentTaskState = TaskState.Yellow;
+    }
+
+    public void TaskIsRed()
+    {
+        if (currentTask == null) return;
+        Image img = imageSpawn.GetComponent<Image>();
+        img.color = Color.red;
+        currentTaskState = TaskState.Red;
+
+    }
+
     private void Update()
     {
         timerTaskSpawn.UpdateTimer(Time.deltaTime);
-        if(timerTaskSpawn.isTimerDone && !isTaskActive)
+        if(timerTaskSpawn.currentState == TimerEasy.TimerEnum.isTimerDone && !isTaskActive)
         {
             ActivateTask();
         }
@@ -65,23 +87,44 @@ public class TaskGiver : MonoBehaviour
         imageSpawn.SetActive(false);
         currentTask = null;
     }
-
     private void TaskSucceed(taskEnum task)
     {
         if (currentTask == null) return;
         if(task == currentTask.task)
         {
+            taskScore?.Invoke(CalculateTaskScore());
             CleanUpTask();
         }
     }
-
     private void ActivateTask()
     {
         isTaskActive = true;
         currentTask = availableTasks[UnityEngine.Random.Range(0, availableTasks.Count)];
+        AddTaskTimer?.Invoke(gameObject);
         SpawnIcon(currentTask.sprite);
-        Debug.Log("Task active: " +  currentTask.task); 
+        Image img = imageSpawn.GetComponent<Image>();
+        img.color = Color.green;
+        Debug.Log("Task active: " +  currentTask.task);
+        currentTaskState = TaskState.Green;
     }
+
+    private int CalculateTaskScore()
+    {
+        if(currentTaskState == TaskState.Green)
+        {
+            return GameData.maxTaskScore;
+        }
+        else if(currentTaskState == TaskState.Yellow)
+        {
+            return GameData.yellowTaskScore;
+        }
+        else
+        {
+            return GameData.redTaskScore;
+        }
+
+    }
+
 
 
 }
