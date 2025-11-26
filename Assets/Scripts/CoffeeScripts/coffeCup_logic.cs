@@ -42,7 +42,6 @@ public class coffeCup_logic : TaskBase
         fullCoffeCup.SetActive(true);
         fullCoffeCup.transform.position = transform.position;
         transform.position = transform.position + new Vector3(-0.55f, 10, 0);
-        done = true;
     }
 
     // Update is called once per frame
@@ -64,7 +63,6 @@ public class coffeCup_logic : TaskBase
                 {
                     if (done)
                     {
-                        done = false;
                         fullCoffeCup.SetActive(false);
                         taskID = taskEnum.Coffee;
                         InteractionManager.Instance.OnRecieveItem(taskID);
