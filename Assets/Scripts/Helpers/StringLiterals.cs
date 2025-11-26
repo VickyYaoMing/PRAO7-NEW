@@ -12,13 +12,13 @@ public static class StringLiterals
     public static string COFFE_SCENE = "CoffeScene";
     public static string PRINT_SCENE = "PrintingScene";
     public static string TESTSTATION_SCENE = "InteractionTest";
-    public static string DAY1_SCENE = "Map 1";
-    public static string DAY2_SCENE = "Map 2";
+    public static string DAY1_SCENE = "Day1";
+    public static string DAY2_SCENE = "Day2";
     public static string DAY3_SCENE = "Day3";
     public static string STARTMENU_SCENE = "Main Menu Test";
 
 
-    public static string MAIN_SCENE = DAY3_SCENE;
+    public static string MAIN_SCENE = DAY1_SCENE;
     public static string MOPPING_SCENE = "MoppingScene";
     public static string GAMEOVER_SCENE = "GameOverScene";
 

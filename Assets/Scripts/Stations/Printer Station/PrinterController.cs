@@ -35,6 +35,10 @@ public class PrinterController : TaskBase
         SetButtonsActive(false);
     }
 
+    private void OnEnable()
+    {
+        MissionWasAccomplished = false;
+    }
 
 
     void OnTriggerEnter(Collider other)
@@ -111,6 +115,7 @@ public class PrinterController : TaskBase
         {
             MissionWasAccomplished = true;
             QuestCompleted();
+            Exit(true);
         }
     }
 

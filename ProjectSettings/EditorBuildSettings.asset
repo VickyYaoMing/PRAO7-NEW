@@ -38,6 +38,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Map/Day3.unity
     guid: 6ef9fcff44a2a3a49855a529beff722c
+  - enabled: 1
+    path: Assets/Scenes/Map/Day1.unity
+    guid: 298403597d22c514fa951f31746ca354
+  - enabled: 1
+    path: Assets/Scenes/Map/Day2.unity
+    guid: 28f8c59fe9d8ae643ad210c681018d96
+  - enabled: 1
+    path: Assets/Scenes/Sandbox/Main Menu Test.unity
+    guid: a72f5c47b5b2be04e9ced177e0b40095
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

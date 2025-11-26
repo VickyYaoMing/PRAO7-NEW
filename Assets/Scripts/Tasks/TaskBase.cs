@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public abstract class TaskBase : MonoBehaviour
 {
     [SerializeField] protected bool hasReturnItem = true;
-    [SerializeField] private taskEnum taskID;
+    [SerializeField] protected taskEnum taskID;
     protected bool MissionWasAccomplished = false;
 
     protected virtual void Update()
@@ -23,7 +23,7 @@ public abstract class TaskBase : MonoBehaviour
             MissionWasAccomplished = true;
         }
     }
-    protected virtual void OnMissionAccomplished()
+    protected void OnMissionAccomplished()
     {
         InteractionManager.Instance.OnRecieveItem(taskID);
     }

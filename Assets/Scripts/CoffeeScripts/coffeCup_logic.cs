@@ -64,9 +64,11 @@ public class coffeCup_logic : TaskBase
                 {
                     if (done)
                     {
-                        MissionWasAccomplished= true;
-                        fullCoffeCup.SetActive (false);
-                        Exit(true);
+                        done = false;
+                        fullCoffeCup.SetActive(false);
+                        taskID = taskEnum.Coffee;
+                        InteractionManager.Instance.OnRecieveItem(taskID);
+                        Exit();
                     }
                     m_held = true;
                     m_DistanceToCamera = Vector3.Distance(m_Camera.transform.position, transform.position);
