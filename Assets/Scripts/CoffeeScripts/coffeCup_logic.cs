@@ -15,7 +15,7 @@ public class coffeCup_logic : TaskBase
   
 
     [SerializeField]public bool m_inPosition = false;
-    bool done;
+    [SerializeField] public bool done;
     Vector3 maxVelocity;
     Vector3 test;
     public bool IsHeld
@@ -42,7 +42,7 @@ public class coffeCup_logic : TaskBase
         fullCoffeCup.SetActive(true);
         fullCoffeCup.transform.position = transform.position;
         transform.position = transform.position + new Vector3(-0.55f, 10, 0);
-        MissionWasAccomplished = true ;
+        done = true;
     }
 
     // Update is called once per frame
@@ -56,11 +56,18 @@ public class coffeCup_logic : TaskBase
         bool m_hitSmtgh = Physics.Raycast(m_ray, out m_raycastHit);
         if (m_hitSmtgh)
         {
+           
 
             if (m_raycastHit.transform == transform  && !m_held)
             {
                 if (Input.GetMouseButton(0))
                 {
+                    if (done)
+                    {
+                        MissionWasAccomplished= true;
+                        fullCoffeCup.SetActive (false);
+                        Exit(true);
+                    }
                     m_held = true;
                     m_DistanceToCamera = Vector3.Distance(m_Camera.transform.position, transform.position);
                 }           
