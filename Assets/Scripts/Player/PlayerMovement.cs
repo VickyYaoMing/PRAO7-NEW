@@ -5,7 +5,7 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController controller;
     private Animator animator;
 
-    private float speed = 5f;
+    private float speed = 3f;
     private float gravity = -9.81f;
     private float verticalVelocity = 0f;
 

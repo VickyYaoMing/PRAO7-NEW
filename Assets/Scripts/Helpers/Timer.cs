@@ -8,6 +8,14 @@ public class TimerEasy
 
     private bool hasBeenUpdatedAboutHalfway = false;
     private bool hasBeenUpdatedAboutAlmost = false;
+    public float Progress
+    {
+        get
+        {
+            if (totalTime <= 0f) return 0f;
+            return 1f - (currentTime / totalTime); 
+        }
+    }
 
     public enum TimerEnum
     {

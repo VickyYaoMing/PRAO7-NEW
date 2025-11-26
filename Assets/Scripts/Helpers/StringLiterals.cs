@@ -14,7 +14,7 @@ public static class StringLiterals
     public static string TESTSTATION_SCENE = "InteractionTest";
     public static string DAY1_SCENE = "Map 1";
     public static string DAY2_SCENE = "Map 2";
-    public static string DAY3_SCENE = "Map";
+    public static string DAY3_SCENE = "Day3";
     public static string STARTMENU_SCENE = "Main Menu Test";
 
 

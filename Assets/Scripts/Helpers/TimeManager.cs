@@ -2,9 +2,11 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
 {
+    [SerializeField] Slider daySlider;
     public static TimeManager Instance { get; private set; }
     private TimerEasy dayTimer;
     public Dictionary<GameObject, TimerEasy> taskTimers;
@@ -24,6 +26,8 @@ public class TimeManager : MonoBehaviour
     {
         taskTimers = new Dictionary<GameObject, TimerEasy>();
         dayTimer = new TimerEasy(GameData.DayTimer);
+        daySlider.maxValue = 1;
+        daySlider.minValue = 0;
     }
 
     private void OnEnable()
@@ -56,6 +60,7 @@ public class TimeManager : MonoBehaviour
     private void Update()
     {
         dayTimer.UpdateTimer(Time.deltaTime);
+        daySlider.value = dayTimer.Progress;
 
         if (dayTimer.currentState == TimerEasy.TimerEnum.isTimerDone)
         {

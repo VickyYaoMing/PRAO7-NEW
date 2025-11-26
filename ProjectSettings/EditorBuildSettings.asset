@@ -35,6 +35,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Map/Map 2.unity
     guid: fdd695f7515e1364f920b2d881cfa645
+  - enabled: 1
+    path: Assets/Scenes/Map/Day3.unity
+    guid: 6ef9fcff44a2a3a49855a529beff722c
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
