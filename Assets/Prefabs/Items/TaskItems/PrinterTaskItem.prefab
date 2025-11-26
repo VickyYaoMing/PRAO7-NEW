@@ -45,4 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   task: 1
-  sprite: {fileID: 21300000, guid: 171e003f191544748ac56a606479f11f, type: 3}
+  spriteRed: {fileID: 21300000, guid: 26a0a7dccdd8b4143b079bd9d8640a0c, type: 3}
+  spriteGreen: {fileID: 21300000, guid: 9b40d047cc4bdc14f95dae471f54c97e, type: 3}
+  spriteYellow: {fileID: 21300000, guid: 7d0aae768c57fab459fd165ffcf8ecd4, type: 3}

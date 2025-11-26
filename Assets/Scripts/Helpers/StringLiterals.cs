@@ -18,7 +18,7 @@ public static class StringLiterals
     public static string STARTMENU_SCENE = "Main Menu Test";
 
 
-    public static string MAIN_SCENE = DAY1_SCENE;
+    public static string MAIN_SCENE = DAY3_SCENE;
     public static string MOPPING_SCENE = "MoppingScene";
     public static string GAMEOVER_SCENE = "GameOverScene";
 

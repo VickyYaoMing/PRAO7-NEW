@@ -52,22 +52,15 @@ public class TaskGiver : MonoBehaviour
             }
         }
     }
-
     public void TaskIsYellow()
     {
         if (currentTask == null) return;
-        Image img = imageSpawn.GetComponent<Image>();
-        img.color = Color.yellow;
-        currentTaskState = TaskState.Yellow;
+        SpawnIcon(currentTask.spriteYellow);
     }
-
     public void TaskIsRed()
     {
         if (currentTask == null) return;
-        Image img = imageSpawn.GetComponent<Image>();
-        img.color = Color.red;
-        currentTaskState = TaskState.Red;
-
+        SpawnIcon(currentTask.spriteRed);
     }
 
     private void Update()
@@ -101,9 +94,7 @@ public class TaskGiver : MonoBehaviour
         isTaskActive = true;
         currentTask = availableTasks[UnityEngine.Random.Range(0, availableTasks.Count)];
         AddTaskTimer?.Invoke(gameObject);
-        SpawnIcon(currentTask.sprite);
-        Image img = imageSpawn.GetComponent<Image>();
-        img.color = Color.green;
+        SpawnIcon(currentTask.spriteGreen);
         Debug.Log("Task active: " +  currentTask.task);
         currentTaskState = TaskState.Green;
     }

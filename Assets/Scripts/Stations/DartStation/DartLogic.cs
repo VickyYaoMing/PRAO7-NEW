@@ -55,18 +55,19 @@ public class DartLogic : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         if (hasCollidedOnce) return;
+
+            rigidBody.isKinematic = true;
+            OnDartMissed?.Invoke();
+            hasCollidedOnce = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
         if (other.gameObject.CompareTag("DartBoard"))
         {
             rigidBody.isKinematic = true;
             OnDartHit?.Invoke();
             hasCollidedOnce = true;
-        }
-        else
-        {
-            rigidBody.isKinematic = true;
-            OnDartMissed?.Invoke();
-            hasCollidedOnce = true;
-
         }
     }
     private void OnArrowClick()
