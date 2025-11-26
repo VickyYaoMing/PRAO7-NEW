@@ -6500,6 +6500,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Darkboard_01
       objectReference: {fileID: 0}
+    - target: {fileID: 1770305312127886, guid: b06fa9fe4ee0c3e459ea48edfb25e676, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4116335944214334, guid: b06fa9fe4ee0c3e459ea48edfb25e676, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.1626
@@ -6514,7 +6518,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4116335944214334, guid: b06fa9fe4ee0c3e459ea48edfb25e676, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.6699681
+      value: -0.73
       objectReference: {fileID: 0}
     - target: {fileID: 4116335944214334, guid: b06fa9fe4ee0c3e459ea48edfb25e676, type: 3}
       propertyPath: m_LocalPosition.y
@@ -16180,7 +16184,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3967514035069464332, guid: 0ac6940240eb8a5488236503e6539b99, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.22
+      value: 4.52
       objectReference: {fileID: 0}
     - target: {fileID: 3967514035069464332, guid: 0ac6940240eb8a5488236503e6539b99, type: 3}
       propertyPath: m_LocalPosition.y
@@ -16188,7 +16192,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3967514035069464332, guid: 0ac6940240eb8a5488236503e6539b99, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.670817
+      value: -7.06
       objectReference: {fileID: 0}
     - target: {fileID: 3967514035069464332, guid: 0ac6940240eb8a5488236503e6539b99, type: 3}
       propertyPath: m_LocalRotation.w
@@ -16221,6 +16225,18 @@ PrefabInstance:
     - target: {fileID: 6015879555989310053, guid: 0ac6940240eb8a5488236503e6539b99, type: 3}
       propertyPath: m_Name
       value: DartNpc
+      objectReference: {fileID: 0}
+    - target: {fileID: 6078578324358888646, guid: 0ac6940240eb8a5488236503e6539b99, type: 3}
+      propertyPath: m_Size.x
+      value: 1.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 6078578324358888646, guid: 0ac6940240eb8a5488236503e6539b99, type: 3}
+      propertyPath: m_Size.z
+      value: 1.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 6078578324358888646, guid: 0ac6940240eb8a5488236503e6539b99, type: 3}
+      propertyPath: m_Center.y
+      value: 0.92
       objectReference: {fileID: 0}
     - target: {fileID: 6164374029181627711, guid: 0ac6940240eb8a5488236503e6539b99, type: 3}
       propertyPath: imageSpawn
@@ -19922,7 +19938,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1.52, y: 2.2, z: 1.71}
-  m_Center: {x: 0.0000005364418, y: -0.45, z: 0.16708547}
+  m_Center: {x: 0.0000005364418, y: -0.62, z: 0.16708547}
 --- !u!1001 &1767099068
 PrefabInstance:
   m_ObjectHideFlags: 0
