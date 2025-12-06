@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 379293306318980577}
   - component: {fileID: 1196453189751155922}
   m_Layer: 0
-  m_Name: Col4
+  m_Name: times played
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 4435377441575949583}
   - component: {fileID: 691465680994529771}
   m_Layer: 0
-  m_Name: Category
+  m_Name: MinigameName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 7439866942798501926}
   - component: {fileID: 1193451452473863894}
   m_Layer: 0
-  m_Name: Score
+  m_Name: Avg time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -420,7 +420,7 @@ GameObject:
   - component: {fileID: 7943411145099125711}
   - component: {fileID: 8421280916347459818}
   m_Layer: 0
-  m_Name: Col3
+  m_Name: avg clicks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
