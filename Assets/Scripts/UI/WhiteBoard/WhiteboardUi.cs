@@ -69,8 +69,6 @@ public class WhiteboardUi : MonoBehaviour
 
     public void UpdateTable(string[] names, float[] avgTime, int[] avgClicks, int[] timesPlayed)
     {
-        int rowCount = Mathf.Min(4, names.Length);
-
         row1Col1.text = names[0];
         row1Col2.text = avgTime[0].ToString();
         row1Col3.text = avgClicks[0].ToString();
