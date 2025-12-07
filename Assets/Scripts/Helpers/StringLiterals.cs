@@ -20,7 +20,7 @@ public static class StringLiterals
 
     public static string MAIN_SCENE = DAY1_SCENE;
     public static string MOPPING_SCENE = "MoppingScene";
-    public static string GAMEOVER_SCENE = "GameOverScene";
+    public static string GAMEOVER_SCENE = "UIScene";
 
     //ANIMATION PARAMETERS
     public static string WALKING_ANI = "IsWalking";

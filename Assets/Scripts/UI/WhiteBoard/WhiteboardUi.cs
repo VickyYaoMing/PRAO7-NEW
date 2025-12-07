@@ -43,18 +43,35 @@ public class WhiteboardUi : MonoBehaviour
     [SerializeField] public TMP_Text row4Col3;
     [SerializeField] public TMP_Text row4Col4;
 
-
-
     private void Start()
     {
-        UpdateScore(42);
+        UpdateScore(ScoreManager.totalPoints);
 
 
         // temp placeholder data, should be called like this elsewhere? idk how else to do this lol 
         string[] placeholderNames = { "Printing Task", "Coffee Task", "Cleanup Task", "Dartboard Task" };
-        float[] placeholderTime = { 10.4f, 48.23f, 130.32f, 44.23f };
-        int[] placeholderClicks = { 10, 45, 43, 23 };
-        int[] placeholderTimesPlayer = { 2309, 12319, 2393, 22 };
+        //float[] placeholderTime = { 10.4f, 48.23f, 130.32f, 44.23f };
+        //int[] placeholderClicks = { 10, 45, 43, 23 };
+        //int[] placeholderTimesPlayer = { 2309, 12319, 2393, 22 };
+
+
+        float[] placeholderTime = { 
+            TestingAnalytics.Instance.CalculateAverageTimeInSeconds(taskEnum.Printer),
+            TestingAnalytics.Instance.CalculateAverageTimeInSeconds(taskEnum.Coffee),
+            TestingAnalytics.Instance.CalculateAverageTimeInSeconds(taskEnum.Mopping),
+            TestingAnalytics.Instance.CalculateAverageTimeInSeconds(taskEnum.Dart) };
+
+        float[] placeholderClicks = { TestingAnalytics.Instance.CalculateAverageClicks(taskEnum.Printer),
+            TestingAnalytics.Instance.CalculateAverageClicks(taskEnum.Coffee),
+            TestingAnalytics.Instance.CalculateAverageClicks(taskEnum.Mopping),
+            TestingAnalytics.Instance.CalculateAverageClicks(taskEnum.Dart) };
+
+        int[] placeholderTimesPlayer = { TestingAnalytics.Instance.ReturnTimesPlayed(taskEnum.Printer),
+            TestingAnalytics.Instance.ReturnTimesPlayed(taskEnum.Coffee),
+            TestingAnalytics.Instance.ReturnTimesPlayed(taskEnum.Mopping),
+            TestingAnalytics.Instance.ReturnTimesPlayed(taskEnum.Dart)};
+
+
 
 
         UpdateTable(placeholderNames, placeholderTime, placeholderClicks, placeholderTimesPlayer);
@@ -67,7 +84,7 @@ public class WhiteboardUi : MonoBehaviour
     }
 
 
-    public void UpdateTable(string[] names, float[] avgTime, int[] avgClicks, int[] timesPlayed)
+    public void UpdateTable(string[] names, float[] avgTime, float[] avgClicks, int[] timesPlayed)
     {
         row1Col1.text = names[0];
         row1Col2.text = avgTime[0].ToString();

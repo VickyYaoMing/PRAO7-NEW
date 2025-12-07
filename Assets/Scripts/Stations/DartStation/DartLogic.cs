@@ -17,8 +17,8 @@ public class DartLogic : MonoBehaviour
     private Quaternion restRotation;
     private Vector3 mouseStartPosition = Vector3.zero;
     private float currentPull;
-    private float maxPullDistance = 0.19f;    
-    private float maxLaunchSpeed = 15f;
+    private float maxPullDistance = 0.2f;    
+    private float maxLaunchSpeed = 22f;
 
     public static Action OnDartMissed;
     public static Action OnDartHit;
