@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using System.IO;
 
 
 public class WhiteboardUi : MonoBehaviour
@@ -71,9 +72,6 @@ public class WhiteboardUi : MonoBehaviour
             TestingAnalytics.Instance.ReturnTimesPlayed(taskEnum.Mopping),
             TestingAnalytics.Instance.ReturnTimesPlayed(taskEnum.Dart)};
 
-
-
-
         UpdateTable(placeholderNames, placeholderTime, placeholderClicks, placeholderTimesPlayer);
 
     }
@@ -116,5 +114,31 @@ public class WhiteboardUi : MonoBehaviour
             StringLiterals.MAIN_SCENE = nextScene;
             SceneManager.LoadScene(nextScene);
         }
+    }
+
+    public void ExportStatsToCSV()
+    {
+        string path = Path.Combine(Application.persistentDataPath, "task_stats.csv");
+
+        using (StreamWriter writer = new StreamWriter(path))
+        {
+            writer.WriteLine("Minigame | Avg Time | Avg Clicks | Times Played");
+
+            WriteRow(writer, "Printer", taskEnum.Printer);
+            WriteRow(writer, "Coffee", taskEnum.Coffee);
+            WriteRow(writer, "Mopping", taskEnum.Mopping);
+            WriteRow(writer, "Dart", taskEnum.Dart);
+        }
+
+        Debug.Log("task_stats.csv exported to: " + path);
+    }
+
+    private void WriteRow(StreamWriter writer, string label, taskEnum task)
+    {
+        float avgTime = TestingAnalytics.Instance.CalculateAverageTimeInSeconds(task);
+        float avgClicks = TestingAnalytics.Instance.CalculateAverageClicks(task);
+        int timesPlayed = TestingAnalytics.Instance.ReturnTimesPlayed(task);
+
+        writer.WriteLine($"{label}, {avgTime}, {avgClicks}, {timesPlayed}");
     }
 }
