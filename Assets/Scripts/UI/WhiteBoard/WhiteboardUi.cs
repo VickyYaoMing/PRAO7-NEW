@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 
 
 public class WhiteboardUi : MonoBehaviour
@@ -111,6 +112,11 @@ public class WhiteboardUi : MonoBehaviour
         string currentScene = StringLiterals.MAIN_SCENE;
         if (nextSceneMap.TryGetValue(currentScene, out string nextScene))
         {
+            if (currentScene == StringLiterals.DAY3_SCENE)
+            {
+                SceneManager.LoadScene(StringLiterals.STARTMENU_SCENE);
+                return;
+            }
             StringLiterals.MAIN_SCENE = nextScene;
             SceneManager.LoadScene(nextScene);
         }
