@@ -50,7 +50,7 @@ public class chair_scripts : ClickableObjects
 
     protected override void OnClicked()
     {
-
+       
         if (!isCleaned)
         {
             //pos.x = cleanXPos;
@@ -67,7 +67,7 @@ public class chair_scripts : ClickableObjects
         }
 
 
-
+        //amountOfClicks++;
     }
     private IEnumerator ChairMovement(float targetXpos, float targetYRot)
     {
