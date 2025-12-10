@@ -124,11 +124,12 @@ public class WhiteboardUi : MonoBehaviour
 
     public void ExportStatsToCSV()
     {
-        string path = Path.Combine(Application.persistentDataPath, "task_stats.csv");
+        string timeStamp = System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+        string path = Path.Combine(Application.persistentDataPath, $"task_stats{timeStamp}.csv");
 
         using (StreamWriter writer = new StreamWriter(path))
         {
-            writer.WriteLine("Minigame | Avg Time | Avg Clicks | Times Played");
+            writer.WriteLine("Minigame,Avg Time,Avg Clicks,Times Played");
 
             WriteRow(writer, "Printer", taskEnum.Printer);
             WriteRow(writer, "Coffee", taskEnum.Coffee);
