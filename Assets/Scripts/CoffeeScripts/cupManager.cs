@@ -40,6 +40,7 @@ public class cupManager : MonoBehaviour
             {
                 if (cup.m_inPosition)
                 {
+                    cup.locked = true;
                     m_coffeMachine.BrewCoffe(m_raycastHit);
                
                 }             
@@ -50,6 +51,7 @@ public class cupManager : MonoBehaviour
         {
             if (m_coffeMachine.brewedDone)
             {
+                cup.locked = false;
                 cup.Done();
                 m_coffeMachine.coffe.SetActive(false);
                 m_coffeMachine.brewedDone = false;
