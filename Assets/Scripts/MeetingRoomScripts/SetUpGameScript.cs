@@ -52,10 +52,7 @@ public class SetUpGameScript : TaskBase
         if (amount == objectsPerRound)
         {
 
-            time = Time.timeSinceLevelLoad;
-            TestingAnalytics.Instance.LogIfItsBeenPlayed(taskEnum.Mopping);
-            TestingAnalytics.Instance.LogHowLongBeenPlayed(taskEnum.Mopping, time);
-            TestingAnalytics.Instance.LogHowManyClicks(taskEnum.Mopping, mouseClicks);
+
 
 
             MissionWasAccomplished = true;
@@ -98,8 +95,9 @@ public class SetUpGameScript : TaskBase
         }
 
     }
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         if (Input.GetMouseButtonDown(0))
         {
             
