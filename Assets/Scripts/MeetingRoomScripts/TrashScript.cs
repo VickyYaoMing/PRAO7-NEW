@@ -105,6 +105,7 @@ public class TrashScript : ClickableObjects
 
             }
         }
+        //amountOfClicks++;
         ApplyState();
     }
     /// <summary>

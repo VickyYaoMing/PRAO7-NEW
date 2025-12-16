@@ -100,6 +100,7 @@ public class MainMenuManager : MonoBehaviour
         {
             case "Start Game":
                 Debug.Log("Start Game Selected");
+                StringLiterals.MAIN_SCENE = StringLiterals.DAY1_SCENE;
                 SceneManager.LoadScene(StringLiterals.MAIN_SCENE);
                 break;
             case "   Exit":

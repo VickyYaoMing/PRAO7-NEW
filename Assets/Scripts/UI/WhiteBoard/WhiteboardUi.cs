@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 
 
 public class WhiteboardUi : MonoBehaviour
@@ -111,6 +112,11 @@ public class WhiteboardUi : MonoBehaviour
         string currentScene = StringLiterals.MAIN_SCENE;
         if (nextSceneMap.TryGetValue(currentScene, out string nextScene))
         {
+            if (currentScene == StringLiterals.DAY3_SCENE)
+            {
+                SceneManager.LoadScene(StringLiterals.STARTMENU_SCENE);
+                return;
+            }
             StringLiterals.MAIN_SCENE = nextScene;
             SceneManager.LoadScene(nextScene);
         }
@@ -118,11 +124,12 @@ public class WhiteboardUi : MonoBehaviour
 
     public void ExportStatsToCSV()
     {
-        string path = Path.Combine(Application.persistentDataPath, "task_stats.csv");
+        string timeStamp = System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+        string path = Path.Combine(Application.persistentDataPath, $"task_stats{timeStamp}.csv");
 
         using (StreamWriter writer = new StreamWriter(path))
         {
-            writer.WriteLine("Minigame | Avg Time | Avg Clicks | Times Played");
+            writer.WriteLine("Minigame,Avg Time,Avg Clicks,Times Played");
 
             WriteRow(writer, "Printer", taskEnum.Printer);
             WriteRow(writer, "Coffee", taskEnum.Coffee);
