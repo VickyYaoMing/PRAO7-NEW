@@ -37,7 +37,6 @@ public class TestingAnalytics : MonoBehaviour
             taskClicks[task] = 0;
         }
 
-        CreateTestData();
     }
    
     public void LogIfItsBeenPlayed(taskEnum taskId)
@@ -57,11 +56,13 @@ public class TestingAnalytics : MonoBehaviour
 
     public float CalculateAverageClicks(taskEnum taskId)
     {
+        if (taskPlays[taskId] == 0) return 0f;
         return taskClicks[taskId] / taskPlays[taskId];
     }
 
     public float CalculateAverageTimeInSeconds(taskEnum taskId)
     {
+        if (taskPlays[taskId] == 0) return 0f;
         return taskTimes[taskId] / taskPlays[taskId];
     }
 

@@ -8,6 +8,7 @@ public abstract class TaskBase : MonoBehaviour
     [SerializeField] protected bool hasReturnItem = true;
     [SerializeField] protected taskEnum taskID;
     protected bool MissionWasAccomplished = false;
+    private int mouseClicks = 0;
 
     protected virtual void Update()
     {
@@ -22,14 +23,22 @@ public abstract class TaskBase : MonoBehaviour
         {
             MissionWasAccomplished = true;
         }
+        if (Input.GetMouseButtonDown(0))
+        {
+            mouseClicks++;
+        }
     }
     protected void OnMissionAccomplished()
     {
+
         InteractionManager.Instance.OnRecieveItem(taskID);
     }
 
     public void Exit(bool unload = false)
     {
+        TestingAnalytics.Instance.LogIfItsBeenPlayed(taskID);
+        TestingAnalytics.Instance.LogHowLongBeenPlayed(taskID, Time.timeSinceLevelLoad);
+        TestingAnalytics.Instance.LogHowManyClicks(taskID, mouseClicks);
         Scene.OnExit += OnExit;
         Scene.Exit(unload);
     }
@@ -37,6 +46,11 @@ public abstract class TaskBase : MonoBehaviour
     private void OnExit()
     {
         Scene.OnExit -= OnExit;
+    }
+
+    private void OnEnable()
+    {
+        mouseClicks = 0;
     }
 }
 
