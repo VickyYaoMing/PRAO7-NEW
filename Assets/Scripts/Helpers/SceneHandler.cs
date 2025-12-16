@@ -35,6 +35,14 @@ public static class Scene
     public static event Action OnExit;
     public static bool loading;
 
+    public static void ResetStatics()
+    {
+        loadedScenes?.Clear();
+        activeObjects?.Clear();
+        loading = false;
+        OnExit = null;
+    }
+
     public static async void Enter(string sceneName)
     {
         if (loading) return;
