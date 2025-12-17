@@ -13,12 +13,12 @@ public class WhiteboardUi : MonoBehaviour
     [SerializeField] public TMP_Text scoreText;
 
     [Header("Scene Change")]
-    private Dictionary<string, string> nextSceneMap = new Dictionary<string, string>
-    {
-        {StringLiterals.DAY1_SCENE, StringLiterals.DAY2_SCENE },
-        {StringLiterals.DAY2_SCENE, StringLiterals.DAY3_SCENE },
-        {StringLiterals.DAY3_SCENE, StringLiterals.STARTMENU_SCENE },
-    };
+    //private Dictionary<string, string> nextSceneMap = new Dictionary<string, string>
+    //{
+    //    {StringLiterals.DAY1_SCENE, StringLiterals.DAY2_SCENE },
+    //    {StringLiterals.DAY2_SCENE, StringLiterals.DAY3_SCENE },
+    //    {StringLiterals.DAY3_SCENE, StringLiterals.STARTMENU_SCENE },
+    //};
 
     [Header("Table Cells")]
     [Header("Row 1")]
@@ -135,20 +135,42 @@ public class WhiteboardUi : MonoBehaviour
     public void ExportStatsToCSV()
     {
         string timeStamp = System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
-        string path = Path.Combine(Application.persistentDataPath, $"task_stats{timeStamp}.csv");
+        string path = Path.Combine(Application.persistentDataPath, $"task_stats_{timeStamp}.csv");
 
         using (StreamWriter writer = new StreamWriter(path))
         {
-            writer.WriteLine("Minigame,Avg Time,Avg Clicks,Times Played");
+            // OLD SYSTEM
+            //    writer.WriteLine("Minigame,Avg Time,Avg Clicks,Times Played");
 
-            WriteRow(writer, "Printer", taskEnum.Printer);
-            WriteRow(writer, "Coffee", taskEnum.Coffee);
-            WriteRow(writer, "Mopping", taskEnum.Mopping);
-            WriteRow(writer, "Dart", taskEnum.Dart);
+            //    WriteRow(writer, "Printer", taskEnum.Printer);
+            //    WriteRow(writer, "Coffee", taskEnum.Coffee);
+            //    WriteRow(writer, "Mopping", taskEnum.Mopping);
+            //    WriteRow(writer, "Dart", taskEnum.Dart);
+            //}
+            // Write header
+            // Header
+            writer.WriteLine("Minigame,MinigameID,TimeActive,TimesClicked,TimesPlayed");
+
+            var allMinigames = TelemetryManager.Instance.GetCompletedMinigames();
+
+            var playCounts = new Dictionary<string, int>();
+            foreach (var data in allMinigames)
+            {
+                if (!playCounts.ContainsKey(data.minigameName))
+                    playCounts[data.minigameName] = 0;
+
+                playCounts[data.minigameName]++;
+            }
+            foreach (var data in allMinigames)
+            {
+                int timesPlayed = playCounts[data.minigameName];
+                writer.WriteLine($"{data.minigameName},{data.minigameId},{data.timeActive},{data.timesClicked},{timesPlayed}");
+            }
+
+
         }
-
-        Debug.Log("task_stats.csv exported to: " + path);
     }
+
 
     private void WriteRow(StreamWriter writer, string label, taskEnum task)
     {
