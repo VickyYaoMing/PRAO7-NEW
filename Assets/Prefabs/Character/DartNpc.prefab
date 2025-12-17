@@ -1139,7 +1139,6 @@ GameObject:
   - component: {fileID: 5471823201009532175}
   - component: {fileID: 1562166659736693434}
   - component: {fileID: 6078578324358888646}
-  - component: {fileID: 4064979553386159440}
   - component: {fileID: 6164374029181627711}
   m_Layer: 0
   m_Name: DartNpc
@@ -1231,21 +1230,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.5, y: 1.41, z: 1.62}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4064979553386159440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6015879555989310053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa62b0b1713d9974b96d9ca0aae23038, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneName: DartStation
+  m_Size: {x: 1.26, y: 1.41, z: 1.26}
+  m_Center: {x: 0, y: 0.92, z: 0}
 --- !u!114 &6164374029181627711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1259,8 +1245,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   availableTasks:
-  - {fileID: 5020722618605284161, guid: 78083015a654f6a4690f8dba6f4985dc, type: 3}
-  - {fileID: 7356148144028383991, guid: 06d74957db02db9478194645503556c3, type: 3}
   - {fileID: 1393153558022490592, guid: 96deb7a1efa0af64fa119ea8bd37df92, type: 3}
   imageSpawn: {fileID: 0}
 --- !u!1 &6235277222252428497

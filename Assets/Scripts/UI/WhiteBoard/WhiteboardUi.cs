@@ -109,18 +109,28 @@ public class WhiteboardUi : MonoBehaviour
     // Change Scene, this is written with the assumption that end game screen does not become main scene
     public void OnButtonPress()
     {
-        string currentScene = StringLiterals.MAIN_SCENE;
-        if (nextSceneMap.TryGetValue(currentScene, out string nextScene))
-        {
-            if (currentScene == StringLiterals.DAY3_SCENE)
+        Scene.ResetStatics();
+
+        if (StringLiterals.MAIN_SCENE == StringLiterals.DAY1_SCENE)
             {
+                StringLiterals.MAIN_SCENE = StringLiterals.DAY2_SCENE;
+                SceneManager.LoadScene(StringLiterals.MAIN_SCENE);
+                return;
+            }
+            else if (StringLiterals.MAIN_SCENE == StringLiterals.DAY2_SCENE)
+            {
+                StringLiterals.MAIN_SCENE = StringLiterals.DAY3_SCENE;
+                SceneManager.LoadScene(StringLiterals.MAIN_SCENE);
+                return;
+            }
+            else if (StringLiterals.MAIN_SCENE == StringLiterals.DAY3_SCENE)
+            {
+                StringLiterals.MAIN_SCENE = StringLiterals.DAY1_SCENE;
                 SceneManager.LoadScene(StringLiterals.STARTMENU_SCENE);
                 return;
             }
-            StringLiterals.MAIN_SCENE = nextScene;
-            SceneManager.LoadScene(nextScene);
-        }
     }
+
 
     public void ExportStatsToCSV()
     {

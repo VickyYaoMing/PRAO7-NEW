@@ -19,17 +19,19 @@ using UnityEngine;
 public class SetUpGameScript : TaskBase
 {
     ClickableObjects obj;
-   
 
+    float time;
+    int mouseClicks;
     [SerializeField] List<ClickableObjects> allObjects;
     List<ClickableObjects> playableObjects;
     [SerializeField] int objectsPerRound = 4;
 
 
-
     void Start()
     {
+       
         playableObjects = new List<ClickableObjects>();
+        mouseClicks = 0;
         SetupRound();
     }
 
@@ -45,11 +47,18 @@ public class SetUpGameScript : TaskBase
 
     private void CheckIfAllCleanedUp(int amount)
     {
+       
+        
         if (amount == objectsPerRound)
         {
+
+
+
+
             MissionWasAccomplished = true;
-            Debug.Log("Yay you won");
+            
             ClickableObjects.amountCleaned = 0;
+            mouseClicks = 0;
             Exit(true);
         }
     }
@@ -85,6 +94,16 @@ public class SetUpGameScript : TaskBase
 
         }
 
+    }
+    protected override void Update()
+    {
+        base.Update();
+        if (Input.GetMouseButtonDown(0))
+        {
+            
+            mouseClicks++;
+           
+        }
     }
 
 

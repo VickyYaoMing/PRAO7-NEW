@@ -12,6 +12,7 @@ public abstract class ClickableObjects : MonoBehaviour
 {
     public static int amountCleaned = 0;
     protected bool isCleaned = false;
+    //public static int amountOfClicks;
     public static Action<int> UpdateAboutCleaning;
     protected virtual void OnMouseDown()
     {
@@ -22,6 +23,7 @@ public abstract class ClickableObjects : MonoBehaviour
         {
             if (hit.transform == transform)
             {
+                
                 OnClicked();
             }
         }
@@ -36,5 +38,5 @@ public abstract class ClickableObjects : MonoBehaviour
     {
         return isCleaned;
     }
-
+    //public int AmountOfClicks => amountOfClicks;
 }
