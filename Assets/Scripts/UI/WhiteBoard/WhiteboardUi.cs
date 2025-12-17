@@ -141,14 +141,11 @@ public class WhiteboardUi : MonoBehaviour
         {
             // OLD SYSTEM
             //    writer.WriteLine("Minigame,Avg Time,Avg Clicks,Times Played");
-
             //    WriteRow(writer, "Printer", taskEnum.Printer);
             //    WriteRow(writer, "Coffee", taskEnum.Coffee);
             //    WriteRow(writer, "Mopping", taskEnum.Mopping);
             //    WriteRow(writer, "Dart", taskEnum.Dart);
             //}
-            // Write header
-            // Header
             writer.WriteLine("Minigame,MinigameID,TimeActive,TimesClicked,TimesPlayed");
 
             var allMinigames = TelemetryManager.Instance.GetCompletedMinigames();
