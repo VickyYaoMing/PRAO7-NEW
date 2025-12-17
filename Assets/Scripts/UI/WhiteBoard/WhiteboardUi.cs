@@ -167,6 +167,8 @@ public class WhiteboardUi : MonoBehaviour
                 writer.WriteLine($"{data.minigameName},{data.minigameId},{data.timeActive},{data.timesClicked},{timesPlayed}");
             }
 
+            Debug.Log($"task_stats_{timeStamp}.csv exported to: " + path);
+
 
         }
     }

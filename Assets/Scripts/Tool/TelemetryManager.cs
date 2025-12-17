@@ -9,6 +9,12 @@ public class TelemetryManager : MonoBehaviour
     private List<MinigameData> completedMinigames;
     int minigameId;
 
+
+    private void Start()
+    {
+        completedMinigames = new List<MinigameData>();
+    }
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
