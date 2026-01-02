@@ -1,4 +1,6 @@
+using System;
 using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
@@ -12,6 +14,9 @@ public class coffeCup_logic : TaskBase
     public Rigidbody m_Rigidbody;
     public GameObject fullCoffeCup;
     GameObject coffeCup;
+    float time;
+    public static int clicks;
+    public bool locked;
   
 
     [SerializeField]public bool m_inPosition = false;
@@ -35,6 +40,8 @@ public class coffeCup_logic : TaskBase
     {
         maxVelocity = new Vector3(1, 1, 0.4f);
         fullCoffeCup.SetActive(false);
+        clicks = 0; // questionmarl on this one aswell
+        time = 0;
     }
 
     public void Done()
@@ -50,12 +57,17 @@ public class coffeCup_logic : TaskBase
         base.Update();
         Vector3 m_mousePosition = Input.mousePosition;
 
+        if (( Input.GetMouseButtonDown(0) || Input.GetMouseButtonUp(1)))
+        {
+            clicks += 1;
+        } // should this be here? idkkkk helppppppppppppp
+
+
         Ray m_ray = m_Camera.ScreenPointToRay(m_mousePosition);
 
         bool m_hitSmtgh = Physics.Raycast(m_ray, out m_raycastHit);
         if (m_hitSmtgh)
         {
-           
 
             if (m_raycastHit.transform == transform  && !m_held)
             {
@@ -63,13 +75,21 @@ public class coffeCup_logic : TaskBase
                 {
                     if (done)
                     {
+                        int finalClicks = clicks - 1; // since the coffecup is bein replaced, it counts as clicing both of them for whatev rason
                         fullCoffeCup.SetActive(false);
                         taskID = taskEnum.Coffee;
+                        time = Time.realtimeSinceStartup; // als don know if this should be here
                         InteractionManager.Instance.OnRecieveItem(taskID);
+                        //Debug.Log("time" + time);   logs used to debug to make sure the correct data gr sent
+                        //Debug.Log("clicks" + finalClicks); log used ot ensure correct data ws sent in method
                         Exit();
                     }
-                    m_held = true;
-                    m_DistanceToCamera = Vector3.Distance(m_Camera.transform.position, transform.position);
+                    if(!locked)
+                    {
+                        m_held = true;
+                        m_DistanceToCamera = Vector3.Distance(m_Camera.transform.position, transform.position);
+                    }
+                  
                 }           
             }
         }

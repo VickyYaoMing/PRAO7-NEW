@@ -23465,6 +23465,18 @@ PrefabInstance:
       propertyPath: imageSpawn
       value: 
       objectReference: {fileID: 555176597}
+    - target: {fileID: 6164374029181627711, guid: 0ac6940240eb8a5488236503e6539b99, type: 3}
+      propertyPath: availableTasks.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164374029181627711, guid: 0ac6940240eb8a5488236503e6539b99, type: 3}
+      propertyPath: 'availableTasks.Array.data[1]'
+      value: 
+      objectReference: {fileID: 5020722618605284161, guid: 78083015a654f6a4690f8dba6f4985dc, type: 3}
+    - target: {fileID: 6164374029181627711, guid: 0ac6940240eb8a5488236503e6539b99, type: 3}
+      propertyPath: 'availableTasks.Array.data[2]'
+      value: 
+      objectReference: {fileID: 7356148144028383991, guid: 06d74957db02db9478194645503556c3, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
