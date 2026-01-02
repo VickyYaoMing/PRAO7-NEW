@@ -42,6 +42,19 @@ public class TestingAnalytics : MonoBehaviour
         allLists.Add(cleaningList);
     }
 
+    public void ResetTesting()
+    {
+        allLists = new List<List<TestObject>>();
+        coffeeList = new List<TestObject>();
+        dartList = new List<TestObject>();
+        printerList = new List<TestObject>();
+        cleaningList = new List<TestObject>();
+        allLists.Add(coffeeList);
+        allLists.Add(dartList);
+        allLists.Add(printerList);
+        allLists.Add(cleaningList);
+    }
+
     public void RecordMinigameData(taskEnum taskEnum, float time, int clicks, bool accomplished)
     {
         switch (taskEnum)

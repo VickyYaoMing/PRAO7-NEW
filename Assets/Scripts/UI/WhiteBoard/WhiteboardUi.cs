@@ -147,6 +147,7 @@ public class WhiteboardUi : MonoBehaviour
     }
 
         Debug.Log("task_stats.csv exported to: " + path);
+        TestingAnalytics.Instance.ResetTesting();
     }
 
     //private void WriteRow(StreamWriter writer, string label, taskEnum task)
