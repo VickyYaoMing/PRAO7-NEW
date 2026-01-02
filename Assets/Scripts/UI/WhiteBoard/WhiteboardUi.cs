@@ -57,32 +57,28 @@ public class WhiteboardUi : MonoBehaviour
         //int[] placeholderTimesPlayer = { 2309, 12319, 2393, 22 };
 
 
-        float[] placeholderTime = { 
-            TestingAnalytics.Instance.CalculateAverageTimeInSeconds(taskEnum.Printer),
-            TestingAnalytics.Instance.CalculateAverageTimeInSeconds(taskEnum.Coffee),
-            TestingAnalytics.Instance.CalculateAverageTimeInSeconds(taskEnum.Mopping),
-            TestingAnalytics.Instance.CalculateAverageTimeInSeconds(taskEnum.Dart) };
+        //float[] placeholderTime = { 
+        //    TestingAnalytics.Instance.CalculateAverageTimeInSeconds(taskEnum.Printer),
+        //    TestingAnalytics.Instance.CalculateAverageTimeInSeconds(taskEnum.Coffee),
+        //    TestingAnalytics.Instance.CalculateAverageTimeInSeconds(taskEnum.Mopping),
+        //    TestingAnalytics.Instance.CalculateAverageTimeInSeconds(taskEnum.Dart) };
 
-        float[] placeholderClicks = { TestingAnalytics.Instance.CalculateAverageClicks(taskEnum.Printer),
-            TestingAnalytics.Instance.CalculateAverageClicks(taskEnum.Coffee),
-            TestingAnalytics.Instance.CalculateAverageClicks(taskEnum.Mopping),
-            TestingAnalytics.Instance.CalculateAverageClicks(taskEnum.Dart) };
+        //float[] placeholderClicks = { TestingAnalytics.Instance.CalculateAverageClicks(taskEnum.Printer),
+        //    TestingAnalytics.Instance.CalculateAverageClicks(taskEnum.Coffee),
+        //    TestingAnalytics.Instance.CalculateAverageClicks(taskEnum.Mopping),
+        //    TestingAnalytics.Instance.CalculateAverageClicks(taskEnum.Dart) };
 
-        int[] placeholderTimesPlayer = { TestingAnalytics.Instance.ReturnTimesPlayed(taskEnum.Printer),
-            TestingAnalytics.Instance.ReturnTimesPlayed(taskEnum.Coffee),
-            TestingAnalytics.Instance.ReturnTimesPlayed(taskEnum.Mopping),
-            TestingAnalytics.Instance.ReturnTimesPlayed(taskEnum.Dart)};
+        //int[] placeholderTimesPlayer = { TestingAnalytics.Instance.ReturnTimesPlayed(taskEnum.Printer),
+        //    TestingAnalytics.Instance.ReturnTimesPlayed(taskEnum.Coffee),
+        //    TestingAnalytics.Instance.ReturnTimesPlayed(taskEnum.Mopping),
+        //    TestingAnalytics.Instance.ReturnTimesPlayed(taskEnum.Dart)};
 
-        UpdateTable(placeholderNames, placeholderTime, placeholderClicks, placeholderTimesPlayer);
-
+        //UpdateTable(placeholderNames, placeholderTime, placeholderClicks, placeholderTimesPlayer);
     }
-
     public void UpdateScore(int score)
     {
         scoreText.text = $"Score: {score}";
     }
-
-
     public void UpdateTable(string[] names, float[] avgTime, float[] avgClicks, int[] timesPlayed)
     {
         row1Col1.text = names[0];
@@ -130,8 +126,6 @@ public class WhiteboardUi : MonoBehaviour
                 return;
             }
     }
-
-
     public void ExportStatsToCSV()
     {
         string timeStamp = System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
@@ -139,23 +133,28 @@ public class WhiteboardUi : MonoBehaviour
 
         using (StreamWriter writer = new StreamWriter(path))
         {
-            writer.WriteLine("Minigame,Avg Time,Avg Clicks,Times Played");
+            writer.WriteLine("Day: " + StringLiterals.MAIN_SCENE.ToString().Replace("Day", string.Empty));
+            writer.WriteLine("Minigame, Total Time, Total Clicks, Mission Accomplished");
 
-            WriteRow(writer, "Printer", taskEnum.Printer);
-            WriteRow(writer, "Coffee", taskEnum.Coffee);
-            WriteRow(writer, "Mopping", taskEnum.Mopping);
-            WriteRow(writer, "Dart", taskEnum.Dart);
-        }
+            for (int i = 0; i < TestingAnalytics.Instance.allLists.Count; i++)
+            {
+                for (int j = 0; j < TestingAnalytics.Instance.allLists[i].Count; j++)
+                {
+                    var row = TestingAnalytics.Instance.allLists[i][j];
+                    writer.WriteLine($"{row.taskEnum + " " + j}, {row.time}, {row.clicks}, {row.accomplished}");
+                }
+            }
+    }
 
         Debug.Log("task_stats.csv exported to: " + path);
     }
 
-    private void WriteRow(StreamWriter writer, string label, taskEnum task)
-    {
-        float avgTime = TestingAnalytics.Instance.CalculateAverageTimeInSeconds(task);
-        float avgClicks = TestingAnalytics.Instance.CalculateAverageClicks(task);
-        int timesPlayed = TestingAnalytics.Instance.ReturnTimesPlayed(task);
+    //private void WriteRow(StreamWriter writer, string label, taskEnum task)
+    //{
+    //    float avgTime = TestingAnalytics.Instance.CalculateAverageTimeInSeconds(task);
+    //    float avgClicks = TestingAnalytics.Instance.CalculateAverageClicks(task);
+    //    int timesPlayed = TestingAnalytics.Instance.ReturnTimesPlayed(task);
 
-        writer.WriteLine($"{label}, {avgTime}, {avgClicks}, {timesPlayed}");
-    }
+    //    writer.WriteLine($"{label}, {avgTime}, {avgClicks}, {timesPlayed}");
+    //}
 }
