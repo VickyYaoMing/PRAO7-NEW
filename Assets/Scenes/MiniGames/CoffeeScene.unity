@@ -1725,6 +1725,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8619426106815130390, guid: 5b62191079e764e43ac897a397e3290a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2116205579}
+    - targetCorrespondingSourceObject: {fileID: 8619426106815130390, guid: 5b62191079e764e43ac897a397e3290a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1799915591}
     - targetCorrespondingSourceObject: {fileID: 9217938544631422221, guid: 5b62191079e764e43ac897a397e3290a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 812140376}
@@ -2875,6 +2878,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4136429681603384, guid: 0482f7be438d2694fb9176c913b995e5, type: 3}
   m_PrefabInstance: {fileID: 751454750}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1799915590
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1799915591}
+  - component: {fileID: 1799915592}
+  m_Layer: 0
+  m_Name: border (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1799915591
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799915590}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.55, y: 1.34, z: 2.82}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1056448309}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1799915592
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799915590}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.9528017, y: 0.78861934, z: 1}
+  m_Center: {x: 0.8672236, y: -0.10569033, z: 0}
 --- !u!4 &1802142612 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4285425695655684, guid: f5e290f6142a51a42a0a9b85f2c115a5, type: 3}

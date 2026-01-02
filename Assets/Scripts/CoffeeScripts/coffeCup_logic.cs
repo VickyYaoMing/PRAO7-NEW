@@ -80,9 +80,6 @@ public class coffeCup_logic : TaskBase
                         taskID = taskEnum.Coffee;
                         time = Time.realtimeSinceStartup; // als don know if this should be here
                         InteractionManager.Instance.OnRecieveItem(taskID);
-                        TestingAnalytics.Instance.LogIfItsBeenPlayed(taskID);
-                        TestingAnalytics.Instance.LogHowLongBeenPlayed(taskID, time);
-                        TestingAnalytics.Instance.LogHowManyClicks(taskID, clicks);
                         //Debug.Log("time" + time);   logs used to debug to make sure the correct data gr sent
                         //Debug.Log("clicks" + finalClicks); log used ot ensure correct data ws sent in method
                         Exit();
