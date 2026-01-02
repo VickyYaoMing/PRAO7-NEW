@@ -40,7 +40,7 @@ public class cupManager : MonoBehaviour
             {
                 if (cup.m_inPosition)
                 {
-                    cup.locked = true;
+                  //  cup.locked = true;
                     m_coffeMachine.BrewCoffe(m_raycastHit);
                
                 }             
