@@ -36,9 +36,7 @@ public abstract class TaskBase : MonoBehaviour
 
     public void Exit(bool unload = false)
     {
-        TestingAnalytics.Instance.LogIfItsBeenPlayed(taskID);
-        TestingAnalytics.Instance.LogHowLongBeenPlayed(taskID, Time.timeSinceLevelLoad);
-        TestingAnalytics.Instance.LogHowManyClicks(taskID, mouseClicks);
+        TestingAnalytics.Instance.RecordMinigameData(taskID, Time.timeSinceLevelLoad, mouseClicks, MissionWasAccomplished);
         Scene.OnExit += OnExit;
         Scene.Exit(unload);
     }
