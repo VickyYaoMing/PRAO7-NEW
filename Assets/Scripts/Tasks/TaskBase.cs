@@ -10,6 +10,9 @@ public abstract class TaskBase : MonoBehaviour
     protected bool MissionWasAccomplished = false;
     private int mouseClicks = 0;
 
+    string filename;
+    int testNumber = 1;
+
     protected virtual void Update()
     {
         if (MissionWasAccomplished) OnMissionAccomplished();
@@ -26,6 +29,8 @@ public abstract class TaskBase : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             mouseClicks++;
+            ScreenCapture.CaptureScreenshot("screenshots" + testNumber);
+            testNumber++;
         }
     }
     protected void OnMissionAccomplished()
