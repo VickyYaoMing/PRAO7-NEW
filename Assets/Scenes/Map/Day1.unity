@@ -12281,7 +12281,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6385910563238845620, guid: 31767ad280e6dfc4bbb22a71614eb80d, type: 3}
       propertyPath: m_Name
-      value: Boss (1)
+      value: npc boss model
       objectReference: {fileID: 0}
     - target: {fileID: 6867228387234589649, guid: 31767ad280e6dfc4bbb22a71614eb80d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12323,7 +12323,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5463911161817793833, guid: 31767ad280e6dfc4bbb22a71614eb80d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
